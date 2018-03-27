@@ -107,7 +107,7 @@ public class CPResourceUtils {
     }
 
     /**
-     *          根据assets资源拿取id和key
+     * 根据assets资源拿取id和key
      * @return
      */
 //    public static String getFromAssetsForIdKey(){
