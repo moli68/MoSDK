@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GeeSDK.iml" filepath="$PROJECT_DIR$/GeeSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gee_sdk/gee_sdk.iml" filepath="$PROJECT_DIR$/gee_sdk/gee_sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/geetolsdk/geetolsdk.iml" filepath="$PROJECT_DIR$/geetolsdk/geetolsdk.iml" />
     </modules>
   </component>
 </project>
