@@ -53,6 +53,7 @@ public class MapUtils {
         map.put("widthpix",SystemUtils.getWith(mContext)+"");
         map.put("heightpix",SystemUtils.getHeight(mContext)+"");
         map.put("vercode",SystemUtils.getSystemVersion());
+        map.put("agent",SystemUtils.getChannelInfo(mContext)+"");
         return map;
     }
 
