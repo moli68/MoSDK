@@ -2,6 +2,7 @@ package com.gtdev5.geetolsdk.mylibrary.util;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.DisplayMetrics;
@@ -96,20 +97,26 @@ public class SystemUtils {
      */
     public static String getChannelInfo(Context context){
 
-        ApplicationInfo applicationInfo = context.getApplicationInfo();
-        if (applicationInfo==null){
+        ApplicationInfo applicationInfo = null;
+        try {
+            applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(),
+                    PackageManager.GET_META_DATA);
+            if (applicationInfo==null){
+                return Contants.CHANNEL_DEFAULT;
+            }
+            Bundle bundle = applicationInfo.metaData;
+            if (bundle == null){
+                return Contants.CHANNEL_DEFAULT;
+            }
+            String s = bundle.getString(Contants.CHANNEL);
+            if (Utils.isEmpty(s)){
+                return Contants.CHANNEL_DEFAULT;
+            }else {
+                return s;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
             return Contants.CHANNEL_DEFAULT;
-        }
-        Bundle bundle = applicationInfo.metaData;
-        if (bundle == null){
-            return Contants.CHANNEL_DEFAULT;
-        }
-
-        String s = bundle.getString(Contants.CHANNEL);
-        if (Utils.isEmpty(s)){
-            return Contants.CHANNEL_DEFAULT;
-        }else {
-            return s;
         }
     }
 
