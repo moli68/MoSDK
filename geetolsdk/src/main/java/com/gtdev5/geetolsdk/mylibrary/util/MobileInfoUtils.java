@@ -114,9 +114,11 @@ public class MobileInfoUtils {
             } else if (getMobileType().equals("HUAWEI")) { // 华为测试通过
                 componentName = new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity");
             } else if (getMobileType().equals("vivo")) { // VIVO测试通过
-                componentName = ComponentName.unflattenFromString("com.iqoo.secure/.safeguard.PurviewTabActivity");
+                //componentName = ComponentName.unflattenFromString("com.iqoo.secure/.safeguard.PurviewTabActivity");  闪退
+                componentName = ComponentName.unflattenFromString("com.vivo.permissionmanager/com.vivo.permissionmanager.activity.PurviewTabActivity");
             } else if (getMobileType().equals("Meizu")) { //万恶的魅族
-                componentName = ComponentName.unflattenFromString("com.meizu.safe/.permission.PermissionMainActivity");
+                //componentName = ComponentName.unflattenFromString("com.meizu.safe/.permission.PermissionMainActivity");
+                componentName = ComponentName.unflattenFromString("com.meizu.safe/com.meizu.safe.permission.SmartBGActivity");
             } else if (getMobileType().equals("OPPO")) { // OPPO R8205测试通过
                 componentName = ComponentName.unflattenFromString("com.oppo.safe/.permission.startup.StartupAppListActivity");
             } else if (getMobileType().equals("ulong")) { // 360手机 未测试
