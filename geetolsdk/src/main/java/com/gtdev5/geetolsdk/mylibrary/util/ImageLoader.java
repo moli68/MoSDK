@@ -51,21 +51,7 @@ public class ImageLoader {
      */
     public <T> void  loadImage(Context context,ImageView imageView,T imaUrl){
         Glide.with(context).load(imaUrl).crossFade()        //设置淡入淡出效果,默认300ms,可以传参
-                /**
-                 *  下载优先级别:
-                 * IMMEDIATE        //中等
-                 * HIGH             //最高
-                 * NORMAL           //默认
-                 * LOW,priority     //最低
-                 */
                 .priority(Priority.NORMAL)
-                /**
-                 *      缓存策略:
-                 * ALL      缓存资源和转换后的资源
-                 * NONE     不做任何缓存
-                 * SOURCE   缓存资源文件
-                 * RESULT   缓存转换后的资源
-                 */
                 .diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
     }
 
