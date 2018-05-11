@@ -50,7 +50,23 @@ public class ImageLoader {
      * @param <T>
      */
     public <T> void  loadImage(Context context,ImageView imageView,T imaUrl){
-        Glide.with(context).load(imaUrl).into(imageView);
+        Glide.with(context).load(imaUrl).crossFade()        //设置淡入淡出效果,默认300ms,可以传参
+                /**
+                 *  下载优先级别:
+                 * IMMEDIATE        //中等
+                 * HIGH             //最高
+                 * NORMAL           //默认
+                 * LOW,priority     //最低
+                 */
+                .priority(Priority.NORMAL)
+                /**
+                 *      缓存策略:
+                 * ALL      缓存资源和转换后的资源
+                 * NONE     不做任何缓存
+                 * SOURCE   缓存资源文件
+                 * RESULT   缓存转换后的资源
+                 */
+                .diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
     }
 
     /**
@@ -206,7 +222,7 @@ public class ImageLoader {
      * @param loadImg       加载时显示的图片(可空)
      * @param errorImg      失败时显示的图片(可空)
      */
-    public<T> void loadCornerImage(Context context,ImageView imageView,T imgUrl,int loadImg,int errorImg){
+    public<T> void loadCornerImage(Context context,ImageView imageView,T imgUrl,int loadImg,int errorImg,int Padius){
         Glide.with(context)
                 .load(imgUrl)
                 .placeholder(loadImg)
@@ -214,7 +230,7 @@ public class ImageLoader {
                 .crossFade()
                 .priority(Priority.NORMAL)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .bitmapTransform(new RoundedCornersTransformation(context,Contants.CORNER_PADIUS,Contants.CORNER_PADIUS))
+                .bitmapTransform(new RoundedCornersTransformation(context,Padius,Padius))
                 .into(imageView);
     }
 

@@ -36,7 +36,7 @@ public class Utils {
 //    public static Map<String,String> stringMap = new HashMap<>();
 
     /**
-     *          得到手机设备标识码
+     *        得到手机设备标识码
      * @param context
      * @return
      */
@@ -44,21 +44,28 @@ public class Utils {
     public static String getDevice(Context context){
         String device = "";
         Boolean getdevice = SpUtils.getInstance().getBoolean("getdevice", true);
+
         try {
             digest = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED){
             if (getdevice) {
+
                 device = tm.getDeviceId();
+
             }else {
                 if (!SpUtils.getInstance().getString("getDevicekey").equals("") && SpUtils.getInstance().getString("getDevicekey") != null){
+
                     device = SpUtils.getInstance().getString("getDevicekey");
+
                 }
             }
         }else {
+
             if (getdevice) {
                 String yyyyMMdd = getDate("yyyyMMdd");
                 String stringRandom = getStringRandom(128);
@@ -74,6 +81,7 @@ public class Utils {
                     device = SpUtils.getInstance().getString("getDevicekey");
                 }
             }
+
         }
         return device;
     }
