@@ -1,6 +1,9 @@
 package com.gtdev5.geetolsdk.mylibrary.util;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
@@ -53,11 +56,23 @@ public class GsonUtils {
      * @return
      */
     public static <T>List<T> getFromList(String json,Class<T> tClass){
-        List<T> list = new ArrayList<>();
+       /* 错误的集合解析方法
+       List<T> list = new ArrayList<>();
         try {
             Gson gson = new Gson();
             list = gson.fromJson(json,new TypeToken<List<T>>(){}.getType());
         } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
+        return list;*/
+        List<T> list = new ArrayList<T>();
+        try {
+            Gson gson = new Gson();
+            JsonArray arry = new JsonParser().parse(json).getAsJsonArray();
+            for (JsonElement jsonElement : arry) {
+                list.add(gson.fromJson(jsonElement, tClass));
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
