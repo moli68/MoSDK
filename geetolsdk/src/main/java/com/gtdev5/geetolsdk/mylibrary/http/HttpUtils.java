@@ -336,9 +336,9 @@ public class HttpUtils {
             }
             builder.add(key,value);
         }
-
+        Log.e("zeoy","request："+str);
         requestBody = builder.build();
-        Log.e("zeoy","请求参数："+str);
+
         return requestBody;
     }
 
