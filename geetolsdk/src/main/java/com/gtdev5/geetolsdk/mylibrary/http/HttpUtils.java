@@ -315,7 +315,7 @@ public class HttpUtils {
 
         str = str.replace("\n","");//去除换行
         str = str.replace("\\s","");//去除空格
-//        Log.e("testaaaa",str);
+//      Log.e("testaaaa",str);
         isFirst = !isFirst;
         alga.update(str.getBytes());
 

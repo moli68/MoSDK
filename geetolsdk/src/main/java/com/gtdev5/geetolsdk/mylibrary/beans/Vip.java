@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 
 public class Vip  implements Serializable {
-
+    private int viplevel;
     private int count;
     private String time;
     private boolean isout;
@@ -36,5 +36,13 @@ public class Vip  implements Serializable {
 
     public void setIsout(boolean isout) {
         this.isout = isout;
+    }
+
+    public int getViplevel() {
+        return viplevel;
+    }
+
+    public void setViplevel(int viplevel) {
+        this.viplevel = viplevel;
     }
 }

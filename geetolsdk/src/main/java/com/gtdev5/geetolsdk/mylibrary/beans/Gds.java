@@ -32,7 +32,9 @@ public class Gds implements Serializable {
     public void setPrice(String price) {
         this.price = price;
     }
-
+    private int value;               //会员等级
+    private String remark;           //标记
+    private String original;          //原价
     private int gid;
     private String name;
     private String price;
@@ -44,5 +46,29 @@ public class Gds implements Serializable {
 
     public void setSelect(boolean select) {
         this.select = select;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getOriginal() {
+        return original;
+    }
+
+    public void setOriginal(String original) {
+        this.original = original;
     }
 }
