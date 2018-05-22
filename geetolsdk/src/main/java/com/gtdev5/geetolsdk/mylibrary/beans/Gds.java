@@ -32,7 +32,7 @@ public class Gds implements Serializable {
     public void setPrice(String price) {
         this.price = price;
     }
-    private int value;               //会员等级
+    private String value;               //会员等级
     private String remark;           //标记
     private String original;          //原价
     private int gid;
@@ -48,11 +48,11 @@ public class Gds implements Serializable {
         this.select = select;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
