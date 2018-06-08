@@ -556,10 +556,11 @@ public class HttpUtils {
                 if (response.isSuccessful()){
                     //返回成功回调
                     String result = response.body().string();
+
                     Log.e("请求数据：",result);
                     if (callback.mType == String.class){
                         //如果我们需要返回String类型
-                        callbackSuccess(response,result,callback);
+                        callbackSuccess(response,convert(result),callback);
                     }else {
                         //如果返回是其他类型,则用Gson去解析
 
@@ -624,7 +625,23 @@ public class HttpUtils {
 
 
 
-
+    /**
+     * 去除空字符
+     * @param str
+     * @return
+     */
+    public static String convert(String str){
+        byte[] bytes = new byte[str.getBytes().length];
+        int pos = 0;
+        for(byte b:str.getBytes()){
+            if(b!=0){
+                bytes[pos] = b;
+                pos++;
+            }
+            System.out.println(new String(bytes));
+        }
+        return new String(bytes);
+    }
 
 
 
