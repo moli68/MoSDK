@@ -565,7 +565,7 @@ public class HttpUtils {
                         //如果返回是其他类型,则用Gson去解析
 
                         try {
-                            Object o = gson.fromJson(result, callback.mType);
+                            Object o = gson.fromJson(convert(result), callback.mType);
                             callbackSuccess(response,o,callback);
                         } catch (JsonSyntaxException e) {
                             e.printStackTrace();
