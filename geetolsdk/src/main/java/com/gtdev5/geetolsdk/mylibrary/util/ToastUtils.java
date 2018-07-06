@@ -52,8 +52,7 @@ public class ToastUtils {
         if (mToast == null){
             mToast = Toast.makeText(mContext,msg,Toast.LENGTH_LONG);
         }else {
-            mToast.setText(msg);
-            mToast.setDuration(Toast.LENGTH_LONG);
+            mToast = Toast.makeText(mContext,msg,Toast.LENGTH_LONG);
         }
         mToast.show();
     }

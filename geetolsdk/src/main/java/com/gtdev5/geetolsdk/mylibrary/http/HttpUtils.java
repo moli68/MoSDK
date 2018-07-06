@@ -122,10 +122,8 @@ public class HttpUtils {
             resultMap = sortMapByKey(map);
         }
 
-
         String str="";
         int num = 0;
-
 
         boolean isFirst = true;
         switch (type){
@@ -287,6 +285,8 @@ public class HttpUtils {
         FormBody.Builder builder = new FormBody.Builder();
         resultMap = sortMapByKey(map);
 
+        Log.e("请求参数：","map:"+resultMap.toString());
+
         String str="";
         int num = 0;
 
@@ -313,11 +313,15 @@ public class HttpUtils {
             }
         }
 
+
         str = str.replace("\n","");//去除换行
         str = str.replace("\\s","");//去除空格
-//      Log.e("testaaaa",str);
+
+        Log.e("请求参数：","string:"+str);
+//        Log.e("testaaaa",str);
         isFirst = !isFirst;
         alga.update(str.getBytes());
+
 
         /**
          * 循环遍历value值，添加到表单
@@ -336,9 +340,8 @@ public class HttpUtils {
             }
             builder.add(key,value);
         }
-        Log.e("zeoy","request："+str);
-        requestBody = builder.build();
 
+        requestBody = builder.build();
         return requestBody;
     }
 
@@ -488,6 +491,56 @@ public class HttpUtils {
 //    }
     /**---------------------------------------------------------------------------分割线-------------------------------------------------------------------------*/
 
+    //
+
+    /**
+     *      提供给外部调用的添加服务单接口
+     * @param callback      回调函数
+     */
+    public void postAddService(String title,String descibe,String type,String img,BaseCallback callback){
+        post(API.COMMON_URL+API.ADD_SERVICE,MapUtils.getAddServiceMap(title,descibe,type,img),callback);
+    }
+
+
+    /**
+     * 获取服务单接口
+     * @param page
+     * @param limit
+     * @param callback
+     */
+    public void postGetServices(int page,int limit,BaseCallback callback){
+        post(API.COMMON_URL+API.GET_SERVICE,MapUtils.getGetServiceMap(page,limit),callback);
+    }
+
+    /**
+     * 获取服务单详情的接口
+     * @param service_id
+     * @param callback
+     */
+    public void postGetServicesDetails(int service_id,BaseCallback callback){
+        post(API.COMMON_URL+API.GET_SERVICE_DETAILS,MapUtils.getServiceDetialsMap(service_id),callback);
+    }
+
+    /**
+     *
+     * 添加服务单回复接口
+     * @param service_id
+     * @param repley
+     * @param img
+     * @param callback
+     */
+    public void postAddRepley(int service_id,String repley,String img,BaseCallback callback){
+        post(API.COMMON_URL+API.ADD_REPLEY,MapUtils.getAddRepleyMap(service_id,repley,img),callback);
+    }
+
+    /**
+     * 结束服务
+     * @param id
+     * @param callback
+     */
+    public void postEndService(int id,BaseCallback callback){
+        post(API.COMMON_URL+API.END_SERVICE,MapUtils.getServiceDetialsMap(id),callback);
+    }
 
     /**
      *      提供给外部调用的注册接口
@@ -541,7 +594,7 @@ public class HttpUtils {
      * @param params        请求参数(表单)
      * @param callback      回调函数
      */
-    public void post(String url, Map<String,String> params, final BaseCallback callback){
+    private void post(String url, Map<String,String> params, final BaseCallback callback){
         //请求之前调用(例如加载动画)
         callback.onRequestBefore();
           mOkHttpClient.newCall(getRequest(url,params)).enqueue(new Callback() {
@@ -556,16 +609,15 @@ public class HttpUtils {
                 if (response.isSuccessful()){
                     //返回成功回调
                     String result = response.body().string();
-
                     Log.e("请求数据：",result);
                     if (callback.mType == String.class){
                         //如果我们需要返回String类型
-                        callbackSuccess(response,convert(result),callback);
+                        callbackSuccess(response,result,callback);
                     }else {
                         //如果返回是其他类型,则用Gson去解析
 
                         try {
-                            Object o = gson.fromJson(convert(result), callback.mType);
+                            Object o = gson.fromJson(result, callback.mType);
                             callbackSuccess(response,o,callback);
                         } catch (JsonSyntaxException e) {
                             e.printStackTrace();
@@ -589,6 +641,7 @@ public class HttpUtils {
      */
     private Request getRequest(String url,Map<String,String> params){
         //可以从这么划分get和post请求，暂时只支持post
+        Log.e("请求参数：","url:"+url);
          return new Request.Builder().url(url).post(getRequestBody(params)).build();
     }
 
@@ -625,23 +678,7 @@ public class HttpUtils {
 
 
 
-    /**
-     * 去除空字符
-     * @param str
-     * @return
-     */
-    public static String convert(String str){
-        byte[] bytes = new byte[str.getBytes().length];
-        int pos = 0;
-        for(byte b:str.getBytes()){
-            if(b!=0){
-                bytes[pos] = b;
-                pos++;
-            }
-            System.out.println(new String(bytes));
-        }
-        return new String(bytes);
-    }
+
 
 
 

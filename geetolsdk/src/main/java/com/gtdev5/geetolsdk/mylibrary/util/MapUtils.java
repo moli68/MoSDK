@@ -100,4 +100,53 @@ public class MapUtils {
         return map;
     }
 
+    /**
+     * @param title      标题  不能为空
+     * @param descibe    简介
+     * @param type       类型
+     * @param img        base64图片  多个用，分割
+     * @return
+     */
+    public static Map<String, String> getAddServiceMap(String title,String descibe,String type,String img) {
+        Map<String,String> map = new HashMap<>();
+        map.putAll(getCurrencyMap());
+        map.put("title",title);
+        map.put("describe",descibe);
+        map.put("type",type);
+        map.put("img",img);
+        return map;
+    }
+
+    /**
+     * @param page           页码
+     * @param limit          单页条数
+     * @return
+     */
+    public static Map<String, String> getGetServiceMap(int page, int limit) {
+        Map<String,String> map = new HashMap<>();
+        map.putAll(getCurrencyMap());
+        map.put("page",String.valueOf(page));
+        map.put("limit",String.valueOf(limit));
+        return map;
+    }
+
+    /**
+     * @param service_id
+     * @return
+     */
+    public static Map<String, String> getServiceDetialsMap(int service_id) {
+        Map<String,String> map = new HashMap<>();
+        map.putAll(getCurrencyMap());
+        map.put("id",String.valueOf(service_id));
+        return map;
+    }
+
+    public static Map<String, String> getAddRepleyMap(int service_id, String repley, String img) {
+        Map<String,String> map = new HashMap<>();
+        map.putAll(getCurrencyMap());
+        map.put("service_id",String.valueOf(service_id));
+        map.put("desc",repley);
+        map.put("img",img);
+        return map;
+    }
 }

@@ -40,4 +40,33 @@ public interface API {
      */
     public static String ORDER_ONE = "order.one";
 
+
+    /**
+     * 添加服务单
+     */
+    public static String ADD_SERVICE = "sup.add_service";
+
+    /**
+     * 获取服务单
+     */
+    public static String GET_SERVICE = "sup.get_service";
+
+    /**
+     * 获取服务单详情
+     */
+    public static String GET_SERVICE_DETAILS = "sup.get_service_details";
+
+    /**
+     * 添加服务单回复
+     */
+    public static String ADD_REPLEY = "sup.add_reply";
+
+    /**
+     * 结束服务单
+     */
+    public static String END_SERVICE = "sup.end_service";
+
+
+
+
 }
