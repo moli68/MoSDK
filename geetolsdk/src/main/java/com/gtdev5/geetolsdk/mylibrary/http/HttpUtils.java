@@ -594,7 +594,7 @@ public class HttpUtils {
      * @param params        请求参数(表单)
      * @param callback      回调函数
      */
-    private void post(String url, Map<String,String> params, final BaseCallback callback){
+    public void post(String url, Map<String,String> params, final BaseCallback callback){
         //请求之前调用(例如加载动画)
         callback.onRequestBefore();
           mOkHttpClient.newCall(getRequest(url,params)).enqueue(new Callback() {
