@@ -640,8 +640,8 @@ public class HttpUtils {
      * @return
      */
     private Request getRequest(String url,Map<String,String> params){
-        //可以从这么划分get和post请求，暂时只支持post
-        Log.e("请求参数：","url:"+url);
+         //可以从这么划分get和post请求，暂时只支持post
+         Log.e("请求参数：","url:"+url);
          return new Request.Builder().url(url).post(getRequestBody(params)).build();
     }
 
