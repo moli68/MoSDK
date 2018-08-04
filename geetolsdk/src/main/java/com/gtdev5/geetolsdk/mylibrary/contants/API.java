@@ -66,6 +66,11 @@ public interface API {
      */
     public static String END_SERVICE = "sup.end_service";
 
+    /**
+     * 获取app的下载链接
+     */
+    public static String GET_APPURL = "appurl";
+
 
 
 

@@ -12,15 +12,15 @@ import java.util.List;
  */
 
 public class UpdateBean implements Serializable {
-    private Vip vip;
-    private Boolean issucc;
+    private Vip vip;                //vip信息
+    private Boolean issucc;         //调用是否成功
     private String msg;
     private String code;
-    private List<Ads> ads;
-    private List<Gds> gds;
-    private List<Swt> swt;
-    private Contract contract;
-    private String hpurl;
+    private List<Ads> ads;          //广告信息  不同位置的广告信息都在此 Pos表示不同位置  需后台设置
+    private List<Gds> gds;          //商品信息（会员）
+    private List<Swt> swt;           //开关   需要后台设置
+    private Contract contract;        //客服联系信息
+    private String hpurl;              //帮助链接
 
     public UpdateBean(){
     }

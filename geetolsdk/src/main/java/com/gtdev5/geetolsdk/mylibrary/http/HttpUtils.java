@@ -492,6 +492,13 @@ public class HttpUtils {
     /**---------------------------------------------------------------------------分割线-------------------------------------------------------------------------*/
 
     //
+    /**
+     *      获取app的下载链接
+     * @param callback      回调函数
+     */
+    public void postGetAppUrl(long apid,BaseCallback callback){
+        post(API.COMMON_URL+API.GET_APPURL,MapUtils.getAppUrlMap(apid),callback);
+    }
 
     /**
      *      提供给外部调用的添加服务单接口
@@ -521,12 +528,14 @@ public class HttpUtils {
         post(API.COMMON_URL+API.GET_SERVICE_DETAILS,MapUtils.getServiceDetialsMap(service_id),callback);
     }
 
+
+
     /**
      *
      * 添加服务单回复接口
-     * @param service_id
-     * @param repley
-     * @param img
+     * @param service_id   服务单id
+     * @param repley       回复内容
+     * @param img           回复图片   base64处理的图片 多个用，分割
      * @param callback
      */
     public void postAddRepley(int service_id,String repley,String img,BaseCallback callback){
@@ -535,7 +544,7 @@ public class HttpUtils {
 
     /**
      * 结束服务
-     * @param id
+     * @param id        服务单id
      * @param callback
      */
     public void postEndService(int id,BaseCallback callback){

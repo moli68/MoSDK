@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 
 public class ResultBean implements Serializable {
-    private boolean issucc;
+    private boolean issucc;            //调用是否成功
     private String msg;
     private String code;
 

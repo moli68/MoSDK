@@ -149,4 +149,12 @@ public class MapUtils {
         map.put("img",img);
         return map;
     }
+
+    public static Map<String, String> getAppUrlMap(long apid) {
+        Map<String,String> map = new HashMap<>();
+        map.putAll(getCurrencyMap());
+        map.put("apid",String.valueOf(apid));
+        return map;
+
+    }
 }
