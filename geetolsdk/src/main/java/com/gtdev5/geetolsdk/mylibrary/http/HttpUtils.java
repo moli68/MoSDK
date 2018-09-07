@@ -567,6 +567,9 @@ public class HttpUtils {
         post(API.COMMON_URL+API.UPDATE,MapUtils.getCurrencyMap(),callback);
     }
 
+
+
+
     /**
      *      提供给外部调用的版本更新接口
      * @param callback      回调函数
@@ -595,6 +598,20 @@ public class HttpUtils {
      */
     public void postOrder(int type,int pid,float amount,int pway,BaseCallback callback){
         post(API.COMMON_URL+API.ORDER_ONE,MapUtils.getOrder(type,pid,amount,pway),callback);
+    }
+
+
+    /**
+     *      新接口
+     *      提供给外部调用的支付订单接口
+     * @param type          订单类型    1:支付    2:打赏
+     * @param pid           商品ID
+     * @param amount        打赏订单必填,支付可不填
+     * @param pway          支付类型    1:微信    2:支付宝
+     * @param callback      回调函数
+     */
+    public void PostOdOrder(int type,int pid,float amount,int pway,BaseCallback callback){
+        post(API.COMMON_URL+API.ORDER_OD,MapUtils.getOrder(type,pid,amount,pway),callback);
     }
 
     /**
