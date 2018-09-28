@@ -5,7 +5,7 @@ public interface API {
     /**
      * 通用接口
      */
-      public static String COMMON_URL = "http://api.moli68.com/app/";//正式接口
+      public static String COMMON_URL = "http://ap.moli68.com/app/";//正式接口
      //public static String COMMON_URL = "http://gtapp.ngrok.80xc.com:82/app/";//测试接口
 
     /**

@@ -5,7 +5,6 @@
       <module fileurl="file://E:\AndroidProjects\MoliSDK\GeeSDK.iml" filepath="E:\AndroidProjects\MoliSDK\GeeSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/MoliSDK.iml" filepath="$PROJECT_DIR$/MoliSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://E:\AndroidProjects\MoliSDK\app\app.iml" filepath="E:\AndroidProjects\MoliSDK\app\app.iml" />
       <module fileurl="file://E:\AndroidProjects\MoliSDK\geetolsdk\geetolsdk.iml" filepath="E:\AndroidProjects\MoliSDK\geetolsdk\geetolsdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/molisdk/molisdk.iml" filepath="$PROJECT_DIR$/molisdk/molisdk.iml" />
     </modules>
