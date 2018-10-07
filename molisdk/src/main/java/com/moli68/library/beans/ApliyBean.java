@@ -2,12 +2,6 @@ package com.moli68.library.beans;
 
 import java.io.Serializable;
 
-/**
- * Created by cheng
- * PackageName ModelTest
- * 2018/1/26 13:57
- */
-
 public class ApliyBean implements Serializable {
     private boolean issucc;
     private String msg;

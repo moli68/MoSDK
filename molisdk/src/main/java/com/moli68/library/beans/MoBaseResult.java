@@ -2,14 +2,7 @@ package com.moli68.library.beans;
 
 import java.io.Serializable;
 
-/**
- * Created by cheng
- * PackageName APP_Lock
- * 2018/1/23 10:38
- *      公共返回参数
- */
-
-public class ResultBean implements Serializable {
+public class MoBaseResult implements Serializable {
     private boolean issucc;            //调用是否成功
     private String msg;
     private String code;

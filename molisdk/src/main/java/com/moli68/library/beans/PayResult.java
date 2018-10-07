@@ -4,9 +4,6 @@ import android.text.TextUtils;
 
 import java.util.Map;
 
-/**
- * 2018/1/26 15:21
- */
 
 public class PayResult {
     private String resultStatus;
