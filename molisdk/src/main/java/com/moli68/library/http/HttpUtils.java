@@ -523,31 +523,20 @@ public class HttpUtils {
         post(API.COMMON_URL+API.FEEDBACK,MapUtils.getFeedBack(content,phone),callback);
     }
 
+
     /**
-     *      提供给外部调用的支付订单接口
-     * @param type          订单类型    1:支付    2:打赏
-     * @param pid           商品ID
-     * @param amount        打赏订单必填,支付可不填
-     * @param pway          支付类型    1:微信    2:支付宝
-     * @param callback      回调函数
+     * @param order_type   订单类型
+     * @param order_serivce_id 商品ID
+     * @param money         支付金额
+     * @param order_way    支付方式
+     * @param callback
      */
-    public void postOrder(int type,int pid,float amount,int pway,BaseCallback callback){
-        post(API.COMMON_URL+API.ORDER_ONE,MapUtils.getOrder(type,pid,amount,pway),callback);
+    public void postOrder(int order_type,int order_serivce_id,float money,int order_way,BaseCallback callback){
+        post(API.COMMON_URL+API.ORDER_ONE,MapUtils.getOrder(order_type,order_serivce_id,money,order_way),callback);
     }
 
 
-    /**
-     *      新接口
-     *      提供给外部调用的支付订单接口
-     * @param type          订单类型    1:支付    2:打赏
-     * @param pid           商品ID
-     * @param amount        打赏订单必填,支付可不填
-     * @param pway          支付类型    1:微信    2:支付宝
-     * @param callback      回调函数
-     */
-    public void PostOdOrder(int type,int pid,float amount,int pway,BaseCallback callback){
-        post(API.COMMON_URL+API.ORDER_OD,MapUtils.getOrder(type,pid,amount,pway),callback);
-    }
+
 
     /**
      *      内部提供的post请求方法

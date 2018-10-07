@@ -31,13 +31,9 @@ public interface API {
     /**
      * 老订单接口(支付宝，微信)
      */
-    public static String ORDER_ONE = "order.one";
+    public static String ORDER_ONE = "payorder";
 
 
-    /**
-     * 新的支付接口，包括微信和支付宝
-     */
-    public static String ORDER_OD = "order.od";
 
 
 }

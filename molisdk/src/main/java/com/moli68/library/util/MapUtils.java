@@ -88,10 +88,10 @@ public class MapUtils {
     public static Map<String,String> getOrder(int type,int pid,float amount,int pway){
         Map<String,String> map = new HashMap<>();
         map.putAll(getCurrencyMap());
-        map.put("type",String.valueOf(type));
-        map.put("pid",String.valueOf(pid));
-        map.put("amount",String.valueOf(amount));
-        map.put("pway",String.valueOf(pway));
+        map.put("order_type",String.valueOf(type));
+        map.put("order_serivce_id",String.valueOf(pid));
+        map.put("money",String.valueOf(amount));
+        map.put("order_way",String.valueOf(pway));
         return map;
     }
 
