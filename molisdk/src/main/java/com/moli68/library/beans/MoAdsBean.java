@@ -41,4 +41,13 @@ public class MoAdsBean implements Serializable {
     public void setUrl_img(String url_img) {
         this.url_img = url_img;
     }
+
+    @Override
+    public String toString() {
+        return "MoAdsBean{" +
+                "name='" + name + '\'' +
+                ", url_link='" + url_link + '\'' +
+                ", url_img='" + url_img + '\'' +
+                '}';
+    }
 }

@@ -69,11 +69,12 @@ public class MapUtils {
      * @param phone         联系方式
      * @return
      */
-    public static Map<String,String> getFeedBack(String content,String phone){
+    public static Map<String,String> getFeedBack(String content,String phone,String photos){
         Map<String,String> map = new HashMap<>();
         map.putAll(getCurrencyMap());
-        map.put("content",content);
-        map.put("contact",phone);
+        map.put("msg",content);
+        map.put("qq",phone);
+        map.put("photos",photos);
         return map;
     }
 
@@ -95,4 +96,15 @@ public class MapUtils {
         return map;
     }
 
+    /**
+     * 获取反馈的map   默认设置了
+     * @return
+     */
+    public static Map<String, String> getFeedBackMap() {
+        Map<String,String> map = new HashMap<>();
+        map.putAll(getCurrencyMap());
+        map.put("page","1");
+        map.put("limit","110");
+        return map;
+    }
 }

@@ -92,4 +92,18 @@ public class MoNewsBean implements Serializable {
     public void setCode(String code) {
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return "MoNewsBean{" +
+                "new_version=" + new_version +
+                ", url_down='" + url_down + '\'' +
+                ", ver_name='" + ver_name + '\'' +
+                ", ver_number=" + ver_number +
+                ", update_log='" + update_log + '\'' +
+                ", issucc=" + issucc +
+                ", msg='" + msg + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }

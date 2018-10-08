@@ -15,6 +15,15 @@ public class MoMemberBean implements Serializable {
 
     private int count;
     private String end_time;
+    private int over;  //会员是否过期  1表示过期了  0没过期
+
+    public int getOver() {
+        return over;
+    }
+
+    public void setOver(int over) {
+        this.over = over;
+    }
 
     public int getCount() {
         return count;
@@ -30,5 +39,14 @@ public class MoMemberBean implements Serializable {
 
     public void setEnd_time(String end_time) {
         this.end_time = end_time;
+    }
+
+    @Override
+    public String toString() {
+        return "MoMemberBean{" +
+                "count=" + count +
+                ", end_time='" + end_time + '\'' +
+                ", over=" + over +
+                '}';
     }
 }

@@ -154,4 +154,24 @@ public class MoOrderResultBean implements Serializable {
     public void setCode(String code) {
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return "MoOrderResultBean{" +
+                "app_key='" + app_key + '\'' +
+                ", money='" + money + '\'' +
+                ", timestramp='" + timestramp + '\'' +
+                ", nonce='" + nonce + '\'' +
+                ", packageX='" + packageX + '\'' +
+                ", sign='" + sign + '\'' +
+                ", qrcode='" + qrcode + '\'' +
+                ", weburl='" + weburl + '\'' +
+                ", partner_id='" + partner_id + '\'' +
+                ", prepay_id='" + prepay_id + '\'' +
+                ", sign_str='" + sign_str + '\'' +
+                ", issucc=" + issucc +
+                ", msg='" + msg + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }

@@ -52,4 +52,13 @@ public class MoControlBean implements Serializable {
         this.value3 = value3;
     }
 
+    @Override
+    public String toString() {
+        return "MoControlBean{" +
+                "key='" + key + '\'' +
+                ", value1='" + value1 + '\'' +
+                ", value2=" + value2 +
+                ", value3='" + value3 + '\'' +
+                '}';
+    }
 }

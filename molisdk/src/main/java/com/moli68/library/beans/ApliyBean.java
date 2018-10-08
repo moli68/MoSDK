@@ -57,4 +57,16 @@ public class ApliyBean implements Serializable {
     public void setPackage_str(String package_str) {
         this.package_str = package_str;
     }
+
+    @Override
+    public String toString() {
+        return "ApliyBean{" +
+                "issucc=" + issucc +
+                ", msg='" + msg + '\'' +
+                ", code='" + code + '\'' +
+                ", appid='" + appid + '\'' +
+                ", amount=" + amount +
+                ", package_str='" + package_str + '\'' +
+                '}';
+    }
 }

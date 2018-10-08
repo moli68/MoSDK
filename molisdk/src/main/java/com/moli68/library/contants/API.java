@@ -26,7 +26,13 @@ public interface API {
     /**
      *意见反馈
      */
-    public static String FEEDBACK = "feedback";
+    public static String FEEDBACK = "msgbug";
+
+
+    /**
+     * 获取反馈建议接口
+     */
+    public static String GETFEEDBACK = "get_msgbug";
 
     /**
      * 老订单接口(支付宝，微信)

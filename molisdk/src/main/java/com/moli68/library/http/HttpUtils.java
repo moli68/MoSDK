@@ -36,6 +36,8 @@ public class HttpUtils {
     private OkHttpClient mOkHttpClient;
     private Handler mHandler;
 
+
+
     public static final int GET_HTTP_TYPE = 1;//get请求
     public static final int POST_HTTP_TYPE = 2;//post请求
     public static final int UPLOAD_HTTP_TYPE = 3;//上传请求
@@ -519,10 +521,14 @@ public class HttpUtils {
      * @param phone         联系方式
      * @param callback      回调函数
      */
-    public void postFeedBack(String content,String phone,BaseCallback callback){
-        post(API.COMMON_URL+API.FEEDBACK,MapUtils.getFeedBack(content,phone),callback);
+    public void postMsgBug(String content,String phone,String photos,BaseCallback callback){
+        post(API.COMMON_URL+API.FEEDBACK,MapUtils.getFeedBack(content,phone,photos),callback);
     }
 
+
+    public void postGetMsgBug(BaseCallback callback){
+        post(API.COMMON_URL+API.GETFEEDBACK,MapUtils.getFeedBackMap(),callback);
+    }
 
     /**
      * @param order_type   订单类型

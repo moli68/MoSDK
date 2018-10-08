@@ -102,4 +102,18 @@ public class MoGoodsBean implements Serializable {
         this.img_url = img_url;
     }
 
+    @Override
+    public String toString() {
+        return "MoGoodsBean{" +
+                "id=" + id +
+                ", val='" + val + '\'' +
+                ", key='" + key + '\'' +
+                ", ali=" + ali +
+                ", wechat=" + wechat +
+                ", msg='" + msg + '\'' +
+                ", price=" + price +
+                ", pay='" + pay + '\'' +
+                ", img_url=" + img_url +
+                '}';
+    }
 }

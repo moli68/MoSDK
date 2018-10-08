@@ -95,4 +95,18 @@ public class MoUpDataResult implements Serializable{
     public void setService(List<MoGoodsBean> service) {
         this.service = service;
     }
+
+    @Override
+    public String toString() {
+        return "MoUpDataResult{" +
+                "member=" + member +
+                ", qq='" + qq + '\'' +
+                ", issucc=" + issucc +
+                ", msg='" + msg + '\'' +
+                ", code='" + code + '\'' +
+                ", imgs=" + imgs +
+                ", node=" + node +
+                ", service=" + service +
+                '}';
+    }
 }

@@ -31,4 +31,12 @@ public class MoImgUrlBean implements Serializable {
     public void setType(int type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "MoImgUrlBean{" +
+                "url='" + url + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

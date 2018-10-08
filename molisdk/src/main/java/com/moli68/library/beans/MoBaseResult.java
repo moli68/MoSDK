@@ -30,4 +30,13 @@ public class MoBaseResult implements Serializable {
     public void setCode(String code) {
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return "MoBaseResult{" +
+                "issucc=" + issucc +
+                ", msg='" + msg + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }
