@@ -39,6 +39,12 @@ public interface API {
      */
     public static String ORDER_ONE = "payorder";
 
+    /**
+     * 获取帮助文档
+     *
+     */
+    public static String GET_DOC = "get_help";
+
 
 
 

@@ -525,6 +525,13 @@ public class HttpUtils {
         post(API.COMMON_URL+API.FEEDBACK,MapUtils.getFeedBack(content,phone,photos),callback);
     }
 
+    /**
+     * 获取文档接口
+     * @param callback
+     */
+    public void postGetDocs(BaseCallback callback){
+        post(API.COMMON_URL+API.GET_DOC,MapUtils.getFeedBackMap(),callback);
+    }
 
     public void postGetMsgBug(BaseCallback callback){
         post(API.COMMON_URL+API.GETFEEDBACK,MapUtils.getFeedBackMap(),callback);

@@ -1,5 +1,7 @@
 package com.moli68.library.beans;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,7 +22,8 @@ public class MoGoodsBean implements Serializable {
      * pay : [1][2]
      */
 
-    private int id;
+    @SerializedName("id")
+    private int good_id;
     private String val;
     private String key;
     private double ali;
@@ -29,15 +32,12 @@ public class MoGoodsBean implements Serializable {
     private int price;
     private String pay;
     private List<MoImgUrlBean> img_url;
-
-    public int getId() {
-        return id;
+    public int getGood_id() {
+        return good_id;
     }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setGood_id(int good_id) {
+        this.good_id = good_id;
     }
-
     public String getVal() {
         return val;
     }
@@ -105,7 +105,7 @@ public class MoGoodsBean implements Serializable {
     @Override
     public String toString() {
         return "MoGoodsBean{" +
-                "id=" + id +
+                "id=" + good_id +
                 ", val='" + val + '\'' +
                 ", key='" + key + '\'' +
                 ", ali=" + ali +
