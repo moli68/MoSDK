@@ -29,7 +29,7 @@ public class MoGoodsBean implements Serializable {
     private double ali;
     private double wechat;
     private String msg;
-    private int price;
+    private double price;
     private String pay;
     private List<MoImgUrlBean> img_url;
     public int getGood_id() {
@@ -78,11 +78,11 @@ public class MoGoodsBean implements Serializable {
         this.msg = msg;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
