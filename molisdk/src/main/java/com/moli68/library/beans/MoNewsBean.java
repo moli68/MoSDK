@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Created by Administrator on 2018/10/7/0007.
  */
 
-public class MoNewsBean implements Serializable {
+public class MoNewsBean extends MoBaseResult implements Serializable {
 
     /**
      * new_version : false
@@ -25,9 +25,6 @@ public class MoNewsBean implements Serializable {
     private String ver_name;
     private int ver_number;
     private String update_log;
-    private boolean issucc;
-    private String msg;
-    private String code;
 
     public boolean isNew_version() {
         return new_version;
@@ -69,29 +66,6 @@ public class MoNewsBean implements Serializable {
         this.update_log = update_log;
     }
 
-    public boolean isIssucc() {
-        return issucc;
-    }
-
-    public void setIssucc(boolean issucc) {
-        this.issucc = issucc;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     @Override
     public String toString() {
@@ -101,9 +75,6 @@ public class MoNewsBean implements Serializable {
                 ", ver_name='" + ver_name + '\'' +
                 ", ver_number=" + ver_number +
                 ", update_log='" + update_log + '\'' +
-                ", issucc=" + issucc +
-                ", msg='" + msg + '\'' +
-                ", code='" + code + '\'' +
                 '}';
     }
 }

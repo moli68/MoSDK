@@ -2,37 +2,12 @@ package com.moli68.library.beans;
 
 import java.io.Serializable;
 
-public class ApliyBean implements Serializable {
-    private boolean issucc;
-    private String msg;
-    private String code;
+public class ApliyBean extends MoBaseResult implements Serializable {
+
     private String appid;
     private float amount;
     private String package_str;
 
-    public boolean isIssucc() {
-        return issucc;
-    }
-
-    public void setIssucc(boolean issucc) {
-        this.issucc = issucc;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public String getAppid() {
         return appid;
@@ -61,9 +36,6 @@ public class ApliyBean implements Serializable {
     @Override
     public String toString() {
         return "ApliyBean{" +
-                "issucc=" + issucc +
-                ", msg='" + msg + '\'' +
-                ", code='" + code + '\'' +
                 ", appid='" + appid + '\'' +
                 ", amount=" + amount +
                 ", package_str='" + package_str + '\'' +

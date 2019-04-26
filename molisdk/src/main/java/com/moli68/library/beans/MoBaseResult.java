@@ -3,7 +3,11 @@ package com.moli68.library.beans;
 import java.io.Serializable;
 
 public class MoBaseResult implements Serializable {
-    private boolean issucc;            //调用是否成功
+
+    /**
+     * 调用是否成功
+     */
+    private boolean issucc;
     private String msg;
     private String code;
 

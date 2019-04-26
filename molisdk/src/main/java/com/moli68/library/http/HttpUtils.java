@@ -8,10 +8,15 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.moli68.library.DataModel;
+import com.moli68.library.beans.MoBaseResult;
+import com.moli68.library.beans.MoDocsResultBean;
+import com.moli68.library.beans.MoUpDataResult;
 import com.moli68.library.callback.BaseCallback;
 import com.moli68.library.callback.DataCallBack;
 import com.moli68.library.contants.API;
 import com.moli68.library.util.CPResourceUtils;
+import com.moli68.library.util.GsonUtils;
 import com.moli68.library.util.MapUtils;
 import com.moli68.library.util.Utils;
 
@@ -106,7 +111,6 @@ public class HttpUtils {
         Map<String,String> map = new TreeMap<String,String>();
 
         map.put("app_key", CPResourceUtils.getString("appid"));
-//        map.put("key",CPResourceUtils.getString("appkey"));
         map.put("app_sign",null);
         map.put("device_number",CPResourceUtils.getDevice());
 
@@ -145,33 +149,18 @@ public class HttpUtils {
                             str += "&" + "key" + "=" + CPResourceUtils.getString("appkey");
                         }
                     }
-//                    if (isFirst){
-//                        str = str.trim();
-//                        if (entry.getKey().equals("key")){
-//                            str += entry.getKey()+"="+entry.getValue();
-//                        }else {
-//                            str += entry.getKey() + "=" + android.util.Base64.encodeToString(entry.getValue().getBytes(), android.util.Base64.DEFAULT).trim();
-//                        }
-//                        isFirst  = !isFirst;
-//                    }else {
-//                        str = str.trim();
-//                        if (entry.getKey().equals("key")){
-//                            str += "&"+entry.getKey()+ "=" + entry.getValue();
-//                        }else {
-//                            str += "&" + entry.getKey() + "=" + android.util.Base64.encodeToString(entry.getValue().getBytes(), android.util.Base64.DEFAULT).trim();
-//                        }
-//                    }
                 }
 
-                    str = str.replace("\n","");//去除换行
-                    str = str.replace("\\s","");//去除空格
-//                Log.e("testaaaa",str);
+                //去除换行
+                    str = str.replace("\n","");
+                //去除空格
+                    str = str.replace("\\s","");
                     isFirst = !isFirst;
                     alga.update(str.getBytes());
 
                 /**
                  * 循环遍历value值，添加到表单
-                 */
+                 **/
                 for (Map.Entry<String, String> entry :
                         resultMap.entrySet()) {
                     String key = entry.getKey();
@@ -280,7 +269,7 @@ public class HttpUtils {
         FormBody.Builder builder = new FormBody.Builder();
         resultMap = sortMapByKey(map);
 
-        Log.e("请求参数：","map:"+resultMap.toString());
+        Log.d("MoliSDK:请求参数：","map:"+resultMap.toString());
 
         String str="";
         int num = 0;
@@ -309,11 +298,12 @@ public class HttpUtils {
         }
 
 
-        str = str.replace("\n","");//去除换行
-        str = str.replace("\\s","");//去除空格
+        //去除换行
+        str = str.replace("\n","");
+        //去除空格
+        str = str.replace("\\s","");
 
-        Log.e("请求参数：","string:"+str);
-//        Log.e("testaaaa",str);
+        Log.d("MoliSDK:请求参数：","string:"+str);
         isFirst = !isFirst;
         alga.update(str.getBytes());
 
@@ -343,157 +333,13 @@ public class HttpUtils {
     /**---------------------------------------------------------------------------分割线-------------------------------------------------------------------------*/
 
 
-//    /**
-//     *      内部请求方法
-//     * @param request
-//     * @return
-//     */
-//    private String getResult(Request request){
-//        Call newCall = mOkHttpClient.newCall(request);
-//        newCall.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                string = response.body().string();
-//                isHave = true;
-//            }
-//        });
-//
-//        while (isHave){
-//            if (string != null && !string.equals("")) {
-//                isHave = false;
-//                return string;
-//            }
-//        }
-//        return string;
-//    }
-
-//    /**
-//     *          返回泛型的json数据对象
-//     * @param url               请求路径
-//     * @param requestBody       表单
-//     * @param tClass            泛型
-//     * @param <T>               返回类型
-//     * @return
-//     */
-//    private <T> T backResponse(String url, RequestBody requestBody, Class<T> tClass){
-//        T t = null;
-//        request = new Request.Builder().url(url).post(requestBody).build();
-//        if (getResult(request) != null){
-//            t = GsonUtils.getFromClass(getResult(request),tClass);
-//        }
-//        return t;
-//    }
-
-    //    /**
-//     *      提供给外部调用的注册接口
-//     * @param tClass        泛型类
-//     * @param <T>           返回类型
-//     * @return
-//     */
-//    public static <T> T getRegister(Class<T> tClass){
-//        return getInstance().inner_getRegister(tClass);
-//    }
-//
-//    /**
-//     *      内部处理注册接口方法
-//     * @param tClass        泛型类
-//     * @param <T>           返回类型
-//     * @return
-//     */
-//    private <T> T inner_getRegister(Class<T> tClass){
-//        T t = null;
-//        RequestBody requestBody = getRequestBody(MapUtils.getRegistMap());
-//        t = backResponse(API.COMMON_URL + API.REGIST_DEVICE, requestBody, tClass);
-//        return t;
-//    }
-//
-//    /**
-//     *      提供给外部调用的更新数据接口
-//     * @param tClass        泛型类
-//     * @param <T>           返回类型
-//     * @return
-//     */
-//    public static <T> T getUpdate(Class<T> tClass){
-//        return getInstance().inner_getUpdate(tClass);
-//    }
-//
-//    /**
-//     *      内部处理更新数据接口方法
-//     * @param tClass        泛型类
-//     * @param <T>           返回类型
-//     * @return
-//     */
-//    private <T> T inner_getUpdate(Class<T> tClass){
-//        T t = null;
-//        RequestBody requestBody = getRequestBody(MapUtils.getCurrencyMap());
-//        t = backResponse(API.COMMON_URL + API.UPDATE,requestBody,tClass);
-//        return t;
-//    }
-//
-//    /**
-//     *      提供给外部调用了版本更新接口
-//     * @param tClass        泛型类
-//     * @param <T>           返回类型
-//     * @return
-//     */
-//    public static <T> T getNews(Class<T> tClass){
-//        return getInstance().inner_getNews(tClass);
-//    }
-//
-//    /**
-//     *      内部处理更新数据接口方法
-//     * @param tClass        泛型类
-//     * @param <T>           返回类型
-//     * @return
-//     */
-//    private <T> T inner_getNews(Class<T> tClass){
-//        T t = null;
-//        RequestBody requestBody = getRequestBody(MapUtils.getNewMap());
-//        t = backResponse(API.COMMON_URL+API.GETNEW,requestBody,tClass);
-//        return t;
-//    }
-//
-//    /**
-//     *      提供给外部调用的意见反馈接口
-//     * @param tClass        泛型类
-//     * @param content       文本内容
-//     * @param phone         联系方式
-//     * @param <T>           返回类型
-//     * @return
-//     */
-//    public static <T> T getFeedBack(Class<T> tClass,String content,String phone){
-//        return getInstance().inner_getFeedBack(tClass,content,phone);
-//    }
-//
-//    /**
-//     *      内部处理意见反馈接口
-//     * @param tClass        泛型类
-//     * @param content       文本内容
-//     * @param phone         联系方式
-//     * @param <T>           返回类型
-//     * @return
-//     */
-//    private <T> T inner_getFeedBack(Class<T>tClass,String content,String phone){
-//        T t = null;
-//        RequestBody requestBody = getRequestBody(MapUtils.getFeedBack(content, phone));
-//        t = backResponse(API.COMMON_URL+API.FEEDBACK,requestBody,tClass);
-//        return t;
-//    }
-    /**---------------------------------------------------------------------------分割线-------------------------------------------------------------------------*/
-
-
 
     /**
      *      提供给外部调用的注册接口
      * @param callback      回调函数
      */
     public void postRegister(BaseCallback callback){
-        post(API.COMMON_URL+API.REGIST_DEVICE, MapUtils.getRegistMap(),callback);
+        post(API.COMMON_URL+API.REGIST_DEVICE, MapUtils.getRegistMap(),callback,API.REGIST_DEVICE);
     }
 
     /**
@@ -501,7 +347,7 @@ public class HttpUtils {
      * @param callback      回调函数
      */
     public void postUpdate(BaseCallback callback){
-        post(API.COMMON_URL+API.UPDATE,MapUtils.getCurrencyMap(),callback);
+        post(API.COMMON_URL+API.UPDATE,MapUtils.getCurrencyMap(),callback,API.UPDATE);
     }
 
 
@@ -514,6 +360,7 @@ public class HttpUtils {
     public void postNews(BaseCallback callback){
         post(API.COMMON_URL+API.GETNEW,MapUtils.getNewMap(),callback);
     }
+
 
     /**
      *      提供给外部调用的意见反馈接口
@@ -530,8 +377,9 @@ public class HttpUtils {
      * @param callback
      */
     public void postGetDocs(BaseCallback callback){
-        post(API.COMMON_URL+API.GET_DOC,MapUtils.getFeedBackMap(),callback);
+        post(API.COMMON_URL+API.GET_DOC,MapUtils.getFeedBackMap(),callback,API.GET_DOC);
     }
+
 
     public void postGetMsgBug(BaseCallback callback){
         post(API.COMMON_URL+API.GETFEEDBACK,MapUtils.getFeedBackMap(),callback);
@@ -549,7 +397,9 @@ public class HttpUtils {
     }
 
 
-
+    public void post(String url, Map<String,String> params, final BaseCallback callback){
+        post(url,params,callback,"defaultRequest");
+    }
 
     /**
      *      内部提供的post请求方法
@@ -557,7 +407,8 @@ public class HttpUtils {
      * @param params        请求参数(表单)
      * @param callback      回调函数
      */
-    public void post(String url, Map<String,String> params, final BaseCallback callback){
+    public void post(String url, Map<String,String> params,
+                     final BaseCallback callback,String requestType){
         //请求之前调用(例如加载动画)
         callback.onRequestBefore();
           mOkHttpClient.newCall(getRequest(url,params)).enqueue(new Callback() {
@@ -572,13 +423,32 @@ public class HttpUtils {
                 if (response.isSuccessful()){
                     //返回成功回调
                     String result = response.body().string();
-                    Log.e("请求数据：",result);
+
+                    //数据更新时先保存到本地再回调
+                    if (API.UPDATE.equals(requestType)){
+                        DataModel.getDefault().saveUpdataGsonString(result);
+                    }
+
+                    if (API.REGIST_DEVICE.equals(requestType)){
+                        MoBaseResult result1 = GsonUtils.getFromClass(result,MoBaseResult.class);
+                        if (result1!= null&&result1.isIssucc()){
+                            DataModel.getDefault().setHasReg(true);
+                        }
+                    }
+
+
+                    if (API.GET_DOC.equals(requestType)){
+                       DataModel.getDefault().saveDocsGsonString(result);
+                    }
+
+
+
+                    Log.d("MoliSDK:"+url+":回调数据",result);
                     if (callback.mType == String.class){
                         //如果我们需要返回String类型
                         callbackSuccess(response,result,callback);
                     }else {
                         //如果返回是其他类型,则用Gson去解析
-
                         try {
                             Object o = gson.fromJson(result, callback.mType);
                             callbackSuccess(response,o,callback);
@@ -604,7 +474,7 @@ public class HttpUtils {
      */
     private Request getRequest(String url,Map<String,String> params){
          //可以从这么划分get和post请求，暂时只支持post
-         Log.e("请求参数：","url:"+url);
+         //Log.e("请求参数：","url:"+url);
          return new Request.Builder().url(url).post(getRequestBody(params)).build();
     }
 

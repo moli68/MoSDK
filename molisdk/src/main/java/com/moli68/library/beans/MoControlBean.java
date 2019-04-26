@@ -15,9 +15,19 @@ public class MoControlBean implements Serializable {
      * value3 : 222
      */
 
+    //对应后台名字
     private String key;
+    /**
+     * 对应后台代号
+     */
     private String value1;
+    /**
+     * 对应后台值1
+     */
     private int value2;
+    /**
+     * 对应后台值2
+     */
     private String value3;
 
     public String getKey() {

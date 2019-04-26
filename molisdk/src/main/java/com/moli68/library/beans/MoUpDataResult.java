@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Administrator on 2018/9/28/0028.
  */
 
-public class MoUpDataResult implements Serializable{
+public class MoUpDataResult extends MoBaseResult implements Serializable{
 
 
 
@@ -24,9 +24,6 @@ public class MoUpDataResult implements Serializable{
 
     private MoMemberBean member;
     private String qq;
-    private boolean issucc;
-    private String msg;
-    private String code;
     private List<MoAdsBean> imgs;
     private List<MoControlBean> node;
     private List<MoGoodsBean> service;
@@ -64,29 +61,6 @@ public class MoUpDataResult implements Serializable{
         this.qq = qq;
     }
 
-    public boolean isIssucc() {
-        return issucc;
-    }
-
-    public void setIssucc(boolean issucc) {
-        this.issucc = issucc;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public List<MoGoodsBean> getService() {
         return service;
@@ -101,9 +75,6 @@ public class MoUpDataResult implements Serializable{
         return "MoUpDataResult{" +
                 "member=" + member +
                 ", qq='" + qq + '\'' +
-                ", issucc=" + issucc +
-                ", msg='" + msg + '\'' +
-                ", code='" + code + '\'' +
                 ", imgs=" + imgs +
                 ", node=" + node +
                 ", service=" + service +

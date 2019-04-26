@@ -26,10 +26,11 @@ public class PermissionUtils {
      * @return true：已授权； false：未授权；
      */
     public static boolean checkPermission(Context context, String permission) {
-        if (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED)
+        if (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     public static boolean checkPermission(Context context){
@@ -49,8 +50,9 @@ public class PermissionUtils {
     public static List<String> checkMorePermissions(Context context, String[] permissions) {
         List<String> permissionList = new ArrayList<>();
         for (int i = 0; i < permissions.length; i++) {
-            if (!checkPermission(context, permissions[i]))
+            if (!checkPermission(context, permissions[i])) {
                 permissionList.add(permissions[i]);
+            }
         }
         return permissionList;
     }
@@ -86,10 +88,11 @@ public class PermissionUtils {
      * -----------并在权限请求系统对话框中选择了 Don't ask again 选项，此方法将返回 false。
      */
     public static boolean judgePermission(Context context, String permission) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, permission))
+        if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, permission)) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -120,9 +123,12 @@ public class PermissionUtils {
             callBack.onHasPermission();
         } else {
             if (judgePermission(context, permission))  // 用户之前已拒绝过权限申请
+            {
                 callBack.onUserHasAlreadyTurnedDown(permission);
-            else                                       // 用户之前已拒绝并勾选了不在询问、用户第一次申请权限。
+            } else                                       // 用户之前已拒绝并勾选了不在询问、用户第一次申请权限。
+            {
                 callBack.onUserHasAlreadyTurnedDownAndDontAsk(permission);
+            }
         }
     }
 
@@ -146,9 +152,12 @@ public class PermissionUtils {
             }
             String[] unauthorizedMorePermissions = (String[]) permissionList.toArray(new String[permissionList.size()]);
             if (isFirst)// 用户之前已拒绝过权限申请
+            {
                 callBack.onUserHasAlreadyTurnedDownAndDontAsk(unauthorizedMorePermissions);
-            else       // 用户之前已拒绝并勾选了不在询问、用户第一次申请权限。
+            } else       // 用户之前已拒绝并勾选了不在询问、用户第一次申请权限。
+            {
                 callBack.onUserHasAlreadyTurnedDown(unauthorizedMorePermissions);
+            }
 
         }
     }
@@ -182,10 +191,11 @@ public class PermissionUtils {
      */
     public static boolean isPermissionRequestSuccess(int[] grantResults) {
         if (grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -209,9 +219,9 @@ public class PermissionUtils {
     public static void onRequestMorePermissionsResult(Context context, String[] permissions, PermissionCheckCallBack callback) {
         boolean isBannedPermission = false;
         List<String> permissionList = checkMorePermissions(context, permissions);
-        if (permissionList.size() == 0)
+        if (permissionList.size() == 0) {
             callback.onHasPermission();
-        else {
+        } else {
             for (int i = 0; i < permissionList.size(); i++) {
                 if (judgePermission(context, permissionList.get(i))) {
                     isBannedPermission = true;
@@ -219,11 +229,12 @@ public class PermissionUtils {
                 }
             }
             //　已禁止再次询问权限
-            if (isBannedPermission)
+            if (isBannedPermission) {
                 callback.onUserHasAlreadyTurnedDown(permissions);
-
-            else // 拒绝权限
+            } else // 拒绝权限
+            {
                 callback.onUserHasAlreadyTurnedDownAndDontAsk(permissions);
+            }
         }
 
     }
@@ -250,7 +261,7 @@ public class PermissionUtils {
         /**
          * 用户已授予权限
          */
-        void onHasPermission();
+        void onHasPermission() /*throws Exception*/;
     }
 
 

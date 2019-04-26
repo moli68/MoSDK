@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Administrator on 2018/10/8/0008.
  */
 
-public class MoBugsResultBean implements Serializable {
+public class MoBugsResultBean extends MoBaseResult implements Serializable {
 
     /**
      * page : 0
@@ -21,9 +21,6 @@ public class MoBugsResultBean implements Serializable {
 
     private int page;
     private int count;
-    private boolean issucc;
-    private String msg;
-    private String code;
     private List<MoBugBean> items;
 
     public int getPage() {
@@ -42,29 +39,6 @@ public class MoBugsResultBean implements Serializable {
         this.count = count;
     }
 
-    public boolean isIssucc() {
-        return issucc;
-    }
-
-    public void setIssucc(boolean issucc) {
-        this.issucc = issucc;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public List<MoBugBean> getItems() {
         return items;
@@ -138,5 +112,26 @@ public class MoBugsResultBean implements Serializable {
         public void setDtime(String dtime) {
             this.dtime = dtime;
         }
+
+        @Override
+        public String toString() {
+            return "ItemsBean{" +
+                    "id=" + id +
+                    ", msg='" + msg + '\'' +
+                    ", photos='" + photos + '\'' +
+                    ", dispose='" + dispose + '\'' +
+                    ", ctime='" + ctime + '\'' +
+                    ", dtime='" + dtime + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "MoBugsResultBean{" +
+                "page=" + page +
+                ", count=" + count +
+                ", items=" + items +
+                '}';
     }
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by Administrator on 2018/10/7/0007.
  */
 
-public class MoOrderResultBean implements Serializable {
+public class MoOrderResultBean extends MoBaseResult implements Serializable {
 
     /**
      * app_key : 2018100761638338
@@ -39,9 +39,7 @@ public class MoOrderResultBean implements Serializable {
     private String partner_id;
     private String prepay_id;
     private String sign_str;
-    private boolean issucc;
-    private String msg;
-    private String code;
+
 
     public String getApp_key() {
         return app_key;
@@ -131,29 +129,6 @@ public class MoOrderResultBean implements Serializable {
         this.sign_str = sign_str;
     }
 
-    public boolean isIssucc() {
-        return issucc;
-    }
-
-    public void setIssucc(boolean issucc) {
-        this.issucc = issucc;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     @Override
     public String toString() {
@@ -169,9 +144,6 @@ public class MoOrderResultBean implements Serializable {
                 ", partner_id='" + partner_id + '\'' +
                 ", prepay_id='" + prepay_id + '\'' +
                 ", sign_str='" + sign_str + '\'' +
-                ", issucc=" + issucc +
-                ", msg='" + msg + '\'' +
-                ", code='" + code + '\'' +
                 '}';
     }
 }

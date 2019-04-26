@@ -1,5 +1,7 @@
 package com.moli68.library.callback;
 import com.google.gson.internal.$Gson$Types;
+import com.moli68.library.beans.MoBaseResult;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import okhttp3.Request;
@@ -23,7 +25,8 @@ public abstract class BaseCallback<T> {
     public static Type getSuperclassTypeParamter(Class<?> subclass){
         Type superclass = subclass.getGenericSuperclass();
         if (superclass instanceof Class){
-            throw new RuntimeException("Missing type paramter.");
+           // throw new RuntimeException("Missing type paramter.");
+            return MoBaseResult.class;
         }
         ParameterizedType parameterizedType = (ParameterizedType) superclass;
         return $Gson$Types.canonicalize(parameterizedType.getActualTypeArguments()[0]);
