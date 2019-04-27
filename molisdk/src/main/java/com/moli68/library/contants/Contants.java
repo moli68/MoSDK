@@ -17,5 +17,14 @@ public class Contants {
     //是否获取了文档
     public static final String HAS_GET_DOCS = "has_get_docs";
 
+    /**
+     * 是否定义了自定义域名
+     */
+    public static final String HAS_DEFINE_COMMON_URL = "has_define_common_url";
+
+    /**
+     * 自定义域名存sp用
+     */
+    public static final String COMMON_URL = "common_url";
 }
 

@@ -10,14 +10,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.moli68.library.DataModel;
 import com.moli68.library.beans.MoBaseResult;
-import com.moli68.library.beans.MoDocsResultBean;
-import com.moli68.library.beans.MoUpDataResult;
+
 import com.moli68.library.callback.BaseCallback;
 import com.moli68.library.callback.DataCallBack;
 import com.moli68.library.contants.API;
+import com.moli68.library.contants.Contants;
 import com.moli68.library.util.CPResourceUtils;
 import com.moli68.library.util.GsonUtils;
 import com.moli68.library.util.MapUtils;
+import com.moli68.library.util.SpUtils;
 import com.moli68.library.util.Utils;
 
 import java.io.IOException;
@@ -60,6 +61,9 @@ public class HttpUtils {
 
     private Gson gson;
 
+
+    private String commonUrl;
+
     private HttpUtils(){
         try {
             mOkHttpClient = new OkHttpClient();
@@ -70,6 +74,19 @@ public class HttpUtils {
             alga = MessageDigest.getInstance("SHA-1");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        initCommonUrl();
+    }
+
+    /**
+     * 初始化自定义链接
+     */
+    private void initCommonUrl() {
+        if (SpUtils.getInstance().getBoolean(Contants.HAS_DEFINE_COMMON_URL,false)){
+            commonUrl = SpUtils.getInstance().getString(Contants.COMMON_URL,API.COMMON_URL);
+        }else {
+            commonUrl = API.COMMON_URL;
         }
     }
 
@@ -127,7 +144,7 @@ public class HttpUtils {
         boolean isFirst = true;
         switch (type){
             case GET_HTTP_TYPE:
-                request = new Request.Builder().url(API.COMMON_URL+url).build();
+                request = new Request.Builder().url(commonUrl+url).build();
                 break;
             case POST_HTTP_TYPE:
                 /**
@@ -177,7 +194,7 @@ public class HttpUtils {
                 }
 
                     requestBody = builder.build();
-                request = new Request.Builder().url(API.COMMON_URL+ url).post(requestBody).build();
+                request = new Request.Builder().url(commonUrl+ url).post(requestBody).build();
                 break;
             case UPLOAD_HTTP_TYPE:
                 MultipartBody.Builder multipartBody = new MultipartBody.Builder("-----").setType(MultipartBody.FORM);
@@ -187,7 +204,7 @@ public class HttpUtils {
                     }
                     requestBody = multipartBody.build();
                 }
-                request = new Request.Builder().url(API.COMMON_URL+url).post(requestBody).build();
+                request = new Request.Builder().url(commonUrl+url).post(requestBody).build();
                 break;
                 default:
                     break;
@@ -339,7 +356,7 @@ public class HttpUtils {
      * @param callback      回调函数
      */
     public void postRegister(BaseCallback callback){
-        post(API.COMMON_URL+API.REGIST_DEVICE, MapUtils.getRegistMap(),callback,API.REGIST_DEVICE);
+        post(commonUrl+API.REGIST_DEVICE, MapUtils.getRegistMap(),callback,API.REGIST_DEVICE);
     }
 
     /**
@@ -347,7 +364,7 @@ public class HttpUtils {
      * @param callback      回调函数
      */
     public void postUpdate(BaseCallback callback){
-        post(API.COMMON_URL+API.UPDATE,MapUtils.getCurrencyMap(),callback,API.UPDATE);
+        post(commonUrl+API.UPDATE,MapUtils.getCurrencyMap(),callback,API.UPDATE);
     }
 
 
@@ -358,7 +375,7 @@ public class HttpUtils {
      * @param callback      回调函数
      */
     public void postNews(BaseCallback callback){
-        post(API.COMMON_URL+API.GETNEW,MapUtils.getNewMap(),callback);
+        post(commonUrl+API.GETNEW,MapUtils.getNewMap(),callback);
     }
 
 
@@ -369,7 +386,7 @@ public class HttpUtils {
      * @param callback      回调函数
      */
     public void postMsgBug(String content,String phone,String photos,BaseCallback callback){
-        post(API.COMMON_URL+API.FEEDBACK,MapUtils.getFeedBack(content,phone,photos),callback);
+        post(commonUrl+API.FEEDBACK,MapUtils.getFeedBack(content,phone,photos),callback);
     }
 
     /**
@@ -377,12 +394,12 @@ public class HttpUtils {
      * @param callback
      */
     public void postGetDocs(BaseCallback callback){
-        post(API.COMMON_URL+API.GET_DOC,MapUtils.getFeedBackMap(),callback,API.GET_DOC);
+        post(commonUrl+API.GET_DOC,MapUtils.getFeedBackMap(),callback,API.GET_DOC);
     }
 
 
     public void postGetMsgBug(BaseCallback callback){
-        post(API.COMMON_URL+API.GETFEEDBACK,MapUtils.getFeedBackMap(),callback);
+        post(commonUrl+API.GETFEEDBACK,MapUtils.getFeedBackMap(),callback);
     }
 
     /**
@@ -393,7 +410,7 @@ public class HttpUtils {
      * @param callback
      */
     public void postOrder(int order_type,int order_serivce_id,float money,int order_way,BaseCallback callback){
-        post(API.COMMON_URL+API.ORDER_ONE,MapUtils.getOrder(order_type,order_serivce_id,money,order_way),callback);
+        post(commonUrl+API.ORDER_ONE,MapUtils.getOrder(order_type,order_serivce_id,money,order_way),callback);
     }
 
 
@@ -509,8 +526,17 @@ public class HttpUtils {
     }
 
 
-
-
+    /**
+     * 获取当前定义的域名
+     * @return commonUrl
+     */
+    public static String getCommonUrl(){
+        if (SpUtils.getInstance().getBoolean(Contants.HAS_DEFINE_COMMON_URL,false)){
+            return SpUtils.getInstance().getString(Contants.COMMON_URL,API.COMMON_URL);
+        }else {
+            return API.COMMON_URL;
+        }
+    }
 
 
 

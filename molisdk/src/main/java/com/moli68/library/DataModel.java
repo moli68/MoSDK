@@ -297,7 +297,7 @@ public class DataModel {
      */
     public MoMemberBean getVip() {
         if (data!=null){
-            IsVipOutOffTime();
+           // IsVipOutOffTime();
             return data.getMember();
         }else {
             return null;
