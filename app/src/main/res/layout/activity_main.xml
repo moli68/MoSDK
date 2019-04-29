@@ -53,11 +53,13 @@
         android:text="下单"
         android:onClick="order"
         android:layout_height="wrap_content" />
-    <Button
+    <com.moli68.library.custom.PressedTextView
         android:layout_width="match_parent"
         android:text="参数"
+        android:gravity="center"
+        android:background="@color/colorAccent"
         android:onClick="imageChose"
-        android:layout_height="wrap_content" />
+        android:layout_height="48dp" />
 
 
 </LinearLayout>
