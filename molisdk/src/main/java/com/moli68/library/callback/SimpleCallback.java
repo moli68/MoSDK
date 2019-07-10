@@ -27,6 +27,8 @@ public abstract class SimpleCallback<T extends MoBaseResult> extends BaseCallbac
     public void onSuccess(Response response, T t) {
         if (t!=null&&t.isIssucc()){
             onSucceed(t);
+        }else if (t!=null){
+            onFailed(null,t.getMsg());
         }else {
             onFailed(null,"接口调用成功，后台返回数据失败：002");
         }

@@ -266,6 +266,9 @@ public class DataModel {
      * @return
      */
     public MoControlBean getControlByKey(String key){
+        if (getAllControl()==null){
+            return null;
+        }
         for (MoControlBean moControlBean:getAllControl()){
             if (key.equals(moControlBean.getValue1())){
                 return moControlBean;
@@ -280,6 +283,9 @@ public class DataModel {
      * @return
      */
     public MoControlBean getControlByName(String name){
+        if (getAllControl()==null){
+            return null;
+        }
         for (MoControlBean moControlBean:getAllControl()){
             if (name.equals(moControlBean.getKey())){
                 return moControlBean;
