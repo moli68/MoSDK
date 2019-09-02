@@ -16,12 +16,16 @@ import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 
+import com.moli68.library.BuildConfig;
+
+import java.lang.reflect.Method;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 
 public class Utils {
@@ -46,11 +50,26 @@ public class Utils {
         }
 
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+
+
+
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED){
+
+
             if (getdevice) {
-
-                device = tm.getDeviceId();
-
+                if (Build.VERSION.SDK_INT>=29){
+                    device =  getUUID();
+                }else {
+                    device = tm.getDeviceId();
+                    try {
+                        // 适配双卡情况
+                        Method method = tm.getClass().getMethod("getImei", int.class);
+                        device = (String) method.invoke(tm, 0);
+                    } catch (Exception e) {
+                        device = tm.getDeviceId();
+                        e.printStackTrace();
+                    }
+                }
             }else {
                 if (!SpUtils.getInstance().getString("getDevicekey").equals("") && SpUtils.getInstance().getString("getDevicekey") != null){
 
@@ -78,6 +97,43 @@ public class Utils {
 
         }
         return device;
+    }
+
+    @SuppressLint("MissingPermission")
+    private static String getUUID() {
+        String serial = null;
+
+        String m_szDevIDShort = "35" +
+                Build.BOARD.length() % 10 + Build.BRAND.length() % 10 +
+
+                Build.CPU_ABI.length() % 10 + Build.DEVICE.length() % 10 +
+
+                Build.DISPLAY.length() % 10 + Build.HOST.length() % 10 +
+
+                Build.ID.length() % 10 + Build.MANUFACTURER.length() % 10 +
+
+                Build.MODEL.length() % 10 + Build.PRODUCT.length() % 10 +
+
+                Build.TAGS.length() % 10 + Build.TYPE.length() % 10 +
+
+                Build.USER.length() % 10; //13 位
+
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                serial = android.os.Build.getSerial();
+            } else {
+                serial = Build.SERIAL;
+            }
+            //API>=9 使用serial号
+            //return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
+            return MD5(m_szDevIDShort+serial);
+        } catch (Exception exception) {
+            //serial需要一个初始化
+            serial = "molisdk"; // 随便一个初始化
+        }
+        //使用硬件信息拼凑出来的15位号码
+        //return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
+        return MD5(m_szDevIDShort+serial);
     }
 
 
