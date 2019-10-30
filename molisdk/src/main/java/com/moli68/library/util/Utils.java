@@ -77,6 +77,10 @@ public class Utils {
 
                 }
             }
+
+            SpUtils.getInstance().putString("getDevicekey", device);
+            SpUtils.getInstance().putBoolean("getdevice",false);
+
         }else {
 
             if (getdevice) {
