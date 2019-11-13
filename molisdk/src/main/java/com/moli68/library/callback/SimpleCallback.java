@@ -1,5 +1,6 @@
 package com.moli68.library.callback;
 
+import com.moli68.library.DataModel;
 import com.moli68.library.beans.MoBaseResult;
 import com.moli68.library.util.MobileInfoUtils;
 
@@ -28,6 +29,9 @@ public abstract class SimpleCallback<T extends MoBaseResult> extends BaseCallbac
         if (t!=null&&t.isIssucc()){
             onSucceed(t);
         }else if (t!=null){
+            if (t.getCode().equals("0x1001")){
+                DataModel.getDefault().setHasReg(false);
+            }
             onFailed(null,t.getMsg());
         }else {
             onFailed(null,"接口调用成功，后台返回数据失败：002");
