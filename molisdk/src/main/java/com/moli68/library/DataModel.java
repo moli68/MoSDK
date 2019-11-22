@@ -95,7 +95,7 @@ public class DataModel {
      */
     public void setHasUpdata(boolean hasUpdata) {
         this.hasUpdata = hasUpdata;
-        SpUtils.getInstance().putBoolean(Contants.HAS_UPDATA,hasReg);
+        SpUtils.getInstance().putBoolean(Contants.HAS_UPDATA,hasUpdata);
     }
 
     /**
@@ -108,7 +108,7 @@ public class DataModel {
 
     public void setHasGetDoc(boolean hasGetDoc) {
         this.hasGetDoc = hasGetDoc;
-        SpUtils.getInstance().putBoolean(Contants.HAS_GET_DOCS,hasReg);
+        SpUtils.getInstance().putBoolean(Contants.HAS_GET_DOCS,hasGetDoc);
     }
 
     /**
