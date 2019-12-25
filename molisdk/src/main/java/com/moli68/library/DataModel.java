@@ -225,6 +225,40 @@ public class DataModel {
     }
 
     /**
+     * 创建时间是否小于12-26
+     * @return
+     */
+    public boolean isSTime (){
+        if (data!=null&&data.getMember()!=null){
+            return data.getMember().isIsstime();
+        }
+        return  false;
+    }
+
+    public Date getCtime(){
+        if (data!=null&&data.getMember()!=null){
+            try {
+                return new SimpleDateFormat("yyy-MM-dd hh:mm:ss").parse(getCtimeString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 获取创建时间字符串
+     * @return
+     */
+    public String getCtimeString(){
+        if (data!=null&&data.getMember()!=null){
+            return data.getMember().getStime();
+        }
+        return null;
+    }
+
+    /**
      * 获取启动图，需要后台配置启动图名字为“启动图”
      * @return
      */

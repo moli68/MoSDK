@@ -13,6 +13,10 @@ public class MoMemberBean implements Serializable {
      * end_time :
      */
 
+    //是否是时间点之前的用户
+    private boolean isstime;
+    //注册时间
+    private String stime;
     private int count;
     private String end_time;
     private int over;  //会员是否过期  1表示过期了  0没过期
@@ -35,6 +39,23 @@ public class MoMemberBean implements Serializable {
 
     public String getEnd_time() {
         return end_time;
+    }
+
+    public boolean isIsstime() {
+        return isstime;
+    }
+
+    public void setIsstime(boolean isstime) {
+        this.isstime = isstime;
+    }
+
+
+    public String getStime() {
+        return stime;
+    }
+
+    public void setStime(String stime) {
+        this.stime = stime;
     }
 
     public void setEnd_time(String end_time) {

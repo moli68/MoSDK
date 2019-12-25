@@ -121,7 +121,11 @@ public class MainActivity extends AppCompatActivity {
         HttpUtils.getInstance().postUpdate(new SimpleCallback<MoUpDataResult>() {
             @Override
             public void onSucceed(MoUpDataResult result) {
-                ToastUtils.showShortToast(result.toString());
+                //ToastUtils.showShortToast(result.toString());
+
+                if (DataModel.getDefault().isSTime()){
+                    ToastUtils.showShortToast(DataModel.getDefault().getCtimeString());
+                }
             }
 
             @Override

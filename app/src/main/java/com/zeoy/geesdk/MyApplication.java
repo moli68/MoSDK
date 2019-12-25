@@ -12,7 +12,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        MoliSDK.start(getApplicationContext()/*,"http://test.moli68.com/app/"*/);
+        MoliSDK.start(getApplicationContext()/*,"http://abcd.moli68.com/app/"*/);
         //MatisseUtil.initEngine(new MatisseUtilEngine());
     }
 }
