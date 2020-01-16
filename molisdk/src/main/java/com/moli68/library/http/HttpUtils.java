@@ -404,14 +404,23 @@ public class HttpUtils {
         post(commonUrl+API.GETFEEDBACK,MapUtils.getFeedBackMap(),callback);
     }
 
+
     /**
-     * @param tel 电话
-     * @param callback
+     * @param tel 电话号码
+     * @param smssign   阿里云短信签名
+     * @param smscode   阿里云短信模板
+     * @param callback  回调
      */
     public void postSendSms(String tel,String smssign,String smscode,BaseCallback callback){
         post(commonUrl+API.SEND_SMS,MapUtils.getSendSMSMap(tel,smscode,smssign),callback);
     }
 
+    /**
+     * @param tel 电话号码
+     * @param code  验证码
+     * @param key   验证码的key
+     * @param callback  回调
+     */
     public void postLogin(String tel,String code,String key,BaseCallback callback){
         post(commonUrl+API.SMS_LOGIN,MapUtils.getSmsLoginMap(tel,code,key),callback,API.SMS_LOGIN);
     }

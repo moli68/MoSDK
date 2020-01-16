@@ -71,7 +71,12 @@ public class DataModel {
      * @return 获取登录相关的数据
      */
     public MoLoginDataBean getLoginData() {
-        return loginData;
+        if (isHasLogin()){
+            return loginData;
+        }else {
+            return null;
+        }
+
     }
 
     /**
@@ -450,7 +455,12 @@ public class DataModel {
     }
 
     public MoUpDataResult getdata() {
-        return data;
+        if (isHasUpdata()){
+            return data;
+        }else {
+            return null;
+        }
+
     }
 
 
