@@ -75,6 +75,16 @@ public class DataModel {
     }
 
     /**
+     * @return 获取登录的手机号
+     */
+    public String getLoginPhone(){
+        if (getLoginData()!=null){
+            return getLoginData().getTl();
+        }
+        return "未绑定手机号";
+    }
+
+    /**
      * @param resultBean 保存文档数据
      */
     public void saveDocs(MoDocsResultBean resultBean){
