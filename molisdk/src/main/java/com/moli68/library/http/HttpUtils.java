@@ -20,6 +20,7 @@ import com.moli68.library.util.CPResourceUtils;
 import com.moli68.library.util.GsonUtils;
 import com.moli68.library.util.MapUtils;
 import com.moli68.library.util.SpUtils;
+import com.moli68.library.util.ToastUtils;
 import com.moli68.library.util.Utils;
 
 import java.io.IOException;
@@ -407,8 +408,8 @@ public class HttpUtils {
      * @param tel 电话
      * @param callback
      */
-    public void postSendSms(String tel,BaseCallback callback){
-        post(commonUrl+API.SEND_SMS,MapUtils.getSendSMSMap(tel,"SMS_182536222","魔力娱乐"),callback);
+    public void postSendSms(String tel,String smssign,String smscode,BaseCallback callback){
+        post(commonUrl+API.SEND_SMS,MapUtils.getSendSMSMap(tel,smscode,smssign),callback);
     }
 
     public void postLogin(String tel,String code,String key,BaseCallback callback){
@@ -484,20 +485,22 @@ public class HttpUtils {
                         //如果返回是其他类型,则用Gson去解析
                         try {
                             Object o = gson.fromJson(result, callback.mType);
-                            callbackSuccess(response,o,callback);
-                            //如果是登录的话 重新updata数据
-                            if (API.SMS_LOGIN.equals(requestType)){
+                            if (!API.SMS_LOGIN.equals(requestType)){
+                                callbackSuccess(response,o,callback);
+                            }else {
                                 postUpdate(new SimpleCallback() {
                                     @Override
                                     public void onSucceed(MoBaseResult result) {
-
+                                        callbackSuccess(response,o,callback);
                                     }
                                     @Override
                                     public void onFailed(Exception e, String msg) {
-
+                                        callbackSuccess(response,o,callback);
+                                        ToastUtils.showShortToast("绑定手机成功，数据更新失败，请重新打开软件");
                                     }
                                 });
                             }
+
                         } catch (JsonSyntaxException e) {
                             e.printStackTrace();
                             callbackError(response,callback,e);

@@ -298,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        HttpUtils.getInstance().postSendSms(temp, new SimpleCallback() {
+        HttpUtils.getInstance().postSendSms(temp,"魔力娱乐","SMS_182536222", new SimpleCallback() {
 
             @Override
             public void onSucceed(MoBaseResult result) {
