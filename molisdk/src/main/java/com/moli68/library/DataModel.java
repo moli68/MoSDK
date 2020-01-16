@@ -5,6 +5,8 @@ import com.moli68.library.beans.MoControlBean;
 import com.moli68.library.beans.MoDocBean;
 import com.moli68.library.beans.MoDocsResultBean;
 import com.moli68.library.beans.MoGoodsBean;
+import com.moli68.library.beans.MoLoginDataBean;
+import com.moli68.library.beans.MoLoginResultBean;
 import com.moli68.library.beans.MoMemberBean;
 import com.moli68.library.beans.MoUpDataResult;
 import com.moli68.library.contants.Contants;
@@ -21,14 +23,18 @@ import java.util.Locale;
 
 
 public class DataModel {
-    private static final String APPDATA = "appconfig";
+
     private static DataModel instance;
+
+    private static final String APPDATA = "appconfig";
     private static final String APPDOCS = "appdocs";
+    private static final String APPLOGINDATA = "applogindata";
     private MoUpDataResult data;
+    private MoLoginDataBean loginData;
     private Gson gson;
     private MoDocsResultBean moDocsResultBean;
 
-    private boolean hasReg,hasUpdata,hasGetDoc;
+    private boolean hasReg,hasUpdata,hasGetDoc,hasLogin;
 
 
 
@@ -36,6 +42,7 @@ public class DataModel {
         gson = new Gson();
         data = gson.fromJson(SpUtils.getInstance().getString(APPDATA), MoUpDataResult.class);
         moDocsResultBean = gson.fromJson(SpUtils.getInstance().getString(APPDOCS),MoDocsResultBean.class);
+        loginData = gson.fromJson(SpUtils.getInstance().getString(APPLOGINDATA),MoLoginDataBean.class);
         initBoolean();
     }
 
@@ -46,6 +53,7 @@ public class DataModel {
         hasReg = SpUtils.getInstance().getBoolean(Contants.HAS_REG,false);
         hasUpdata = SpUtils.getInstance().getBoolean(Contants.HAS_UPDATA,false);
         hasGetDoc = SpUtils.getInstance().getBoolean(Contants.HAS_GET_DOCS,false);
+        hasLogin = SpUtils.getInstance().getBoolean(Contants.HAS_LOGIN,false);
     }
 
     public static DataModel getDefault() {
@@ -59,11 +67,54 @@ public class DataModel {
         return instance;
     }
 
+    /**
+     * @return 获取登录相关的数据
+     */
+    public MoLoginDataBean getLoginData() {
+        return loginData;
+    }
+
+    /**
+     * @param resultBean 保存文档数据
+     */
     public void saveDocs(MoDocsResultBean resultBean){
         SpUtils.getInstance().putString(APPDOCS,gson.toJson(resultBean));
         moDocsResultBean = resultBean;
     }
 
+    /**
+     * @param jsonstring 判断是否登录成功并保存数据
+     */
+    public void savaLoginDataString(String jsonstring){
+        MoLoginResultBean loginResultBean = GsonUtils.getFromClass(jsonstring,MoLoginResultBean.class);
+        if (loginResultBean!=null&&loginResultBean.isIssucc()){
+            savaLoginData(loginResultBean.getData());
+            DataModel.getDefault().setHasLogin(true);
+        }
+    }
+
+    /**
+     * @param loginData 保存短信登录成功后返回的数据
+     */
+    private void savaLoginData(MoLoginDataBean loginData) {
+        this.loginData = loginData;
+        SpUtils.getInstance().putString(APPLOGINDATA,gson.toJson(loginData));
+    }
+
+    /**
+     * @return 判断是否登录过
+     */
+    public boolean isHasLogin() {
+        return hasLogin;
+    }
+
+    /**
+     * @param hasLogin 是否登录过，登录失败后将置为false
+     */
+    public void setHasLogin(boolean hasLogin) {
+        this.hasLogin = hasLogin;
+        SpUtils.getInstance().putBoolean(Contants.HAS_LOGIN,hasLogin);
+    }
 
     /**
      * @return 是否注册过

@@ -13,6 +13,7 @@ import com.moli68.library.beans.MoBaseResult;
 
 import com.moli68.library.callback.BaseCallback;
 import com.moli68.library.callback.DataCallBack;
+import com.moli68.library.callback.SimpleCallback;
 import com.moli68.library.contants.API;
 import com.moli68.library.contants.Contants;
 import com.moli68.library.util.CPResourceUtils;
@@ -403,6 +404,18 @@ public class HttpUtils {
     }
 
     /**
+     * @param tel 电话
+     * @param callback
+     */
+    public void postSendSms(String tel,BaseCallback callback){
+        post(commonUrl+API.SEND_SMS,MapUtils.getSendSMSMap(tel,"SMS_182536222","魔力娱乐"),callback);
+    }
+
+    public void postLogin(String tel,String code,String key,BaseCallback callback){
+        post(commonUrl+API.SMS_LOGIN,MapUtils.getSmsLoginMap(tel,code,key),callback,API.SMS_LOGIN);
+    }
+
+    /**
      * @param order_type   订单类型
      * @param order_serivce_id 商品ID
      * @param money         支付金额
@@ -412,6 +425,8 @@ public class HttpUtils {
     public void postOrder(int order_type,int order_serivce_id,float money,int order_way,BaseCallback callback){
         post(commonUrl+API.ORDER_ONE,MapUtils.getOrder(order_type,order_serivce_id,money,order_way),callback);
     }
+
+
 
 
     public void post(String url, Map<String,String> params, final BaseCallback callback){
@@ -457,8 +472,9 @@ public class HttpUtils {
                     if (API.GET_DOC.equals(requestType)){
                        DataModel.getDefault().saveDocsGsonString(result);
                     }
-
-
+                    if (API.SMS_LOGIN.equals(requestType)){
+                        DataModel.getDefault().savaLoginDataString(result);
+                    }
 
                     Log.d("MoliSDK:"+url+":回调数据",result);
                     if (callback.mType == String.class){
@@ -469,6 +485,19 @@ public class HttpUtils {
                         try {
                             Object o = gson.fromJson(result, callback.mType);
                             callbackSuccess(response,o,callback);
+                            //如果是登录的话 重新updata数据
+                            if (API.SMS_LOGIN.equals(requestType)){
+                                postUpdate(new SimpleCallback() {
+                                    @Override
+                                    public void onSucceed(MoBaseResult result) {
+
+                                    }
+                                    @Override
+                                    public void onFailed(Exception e, String msg) {
+
+                                    }
+                                });
+                            }
                         } catch (JsonSyntaxException e) {
                             e.printStackTrace();
                             callbackError(response,callback,e);

@@ -16,6 +16,7 @@ import com.moli68.library.DataModel;
 import com.moli68.library.beans.MoBaseResult;
 import com.moli68.library.beans.MoBugsResultBean;
 import com.moli68.library.beans.MoDocsResultBean;
+import com.moli68.library.beans.MoLoginResultBean;
 import com.moli68.library.beans.MoNewsBean;
 import com.moli68.library.beans.MoOrderResultBean;
 import com.moli68.library.beans.MoUpDataResult;
@@ -109,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     /**
@@ -276,6 +276,59 @@ public class MainActivity extends AppCompatActivity {
 
                 Thread payThread = new Thread(runnable);
                 payThread.start();
+            }
+
+            @Override
+            public void onFailed(Exception e, String msg) {
+
+            }
+        });
+    }
+
+    /**
+     * 发送短信
+     */
+
+    private String msg,code,tel;
+
+    public void sendsms(View view){
+        String temp = etInput.getText().toString();
+        if (Utils.isEmpty(temp)){
+            ToastUtils.showShortToast("请输入手机号码");
+            return;
+        }
+
+        HttpUtils.getInstance().postSendSms(temp, new SimpleCallback() {
+
+            @Override
+            public void onSucceed(MoBaseResult result) {
+                ToastUtils.showShortToast("验证码发送成功");
+                msg = result.getMsg();
+                code = result.getCode();
+                tel = temp;
+            }
+
+            @Override
+            public void onFailed(Exception e, String msg) {
+
+            }
+        });
+    }
+
+    /**
+     * 登录
+     */
+    public void login(View view){
+        String temp = etInput.getText().toString();
+        if (Utils.isEmpty(temp)){
+            ToastUtils.showShortToast("请输入验证码");
+            return;
+        }
+        HttpUtils.getInstance().postLogin(tel, temp, msg, new SimpleCallback<MoLoginResultBean>() {
+
+            @Override
+            public void onSucceed(MoLoginResultBean result) {
+                ToastUtils.showShortToast("登录成功");
             }
 
             @Override

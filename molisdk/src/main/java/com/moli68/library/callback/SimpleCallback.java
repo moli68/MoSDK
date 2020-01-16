@@ -32,6 +32,9 @@ public abstract class SimpleCallback<T extends MoBaseResult> extends BaseCallbac
             if (t.getCode().equals("0x1001")){
                 DataModel.getDefault().setHasReg(false);
             }
+            if (t.getCode().equals("0x1002")){
+                DataModel.getDefault().setHasLogin(false);
+            }
             onFailed(null,t.getMsg());
         }else {
             onFailed(null,"接口调用成功，后台返回数据失败：002");

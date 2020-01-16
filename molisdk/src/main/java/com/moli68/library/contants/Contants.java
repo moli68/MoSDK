@@ -17,6 +17,8 @@ public class Contants {
     //是否获取了文档
     public static final String HAS_GET_DOCS = "has_get_docs";
 
+    public static final String HAS_LOGIN = "has_login";
+
     /**
      * 是否定义了自定义域名
      */

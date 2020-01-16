@@ -45,6 +45,17 @@ public interface API {
      */
     public static String GET_DOC = "get_help";
 
+    /**
+     * 发送短信
+     */
+    public static String SEND_SMS = "sendsms";
+
+    /**
+     * 短信登录
+     */
+    public static String SMS_LOGIN = "smslogin";
+
+
 
 
 

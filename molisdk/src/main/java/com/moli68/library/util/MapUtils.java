@@ -2,6 +2,8 @@ package com.moli68.library.util;
 
 import android.content.Context;
 
+import com.moli68.library.DataModel;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +33,14 @@ public class MapUtils {
         Map<String,String> map = new HashMap<>();
         map.put("app_key", CPResourceUtils.getString("appid"));
         map.put("app_sign",null);
+        //map.put("device_number","869400041211956");
         map.put("device_number",CPResourceUtils.getDevice());
+
+        if (DataModel.getDefault().isHasLogin()){
+            map.put("user_id",String.valueOf(DataModel.getDefault().getLoginData().getId()));
+            //map.put("user_key","245235re");
+            map.put("user_key",DataModel.getDefault().getLoginData().getUk());
+        }
         return map;
     }
 
@@ -75,6 +84,37 @@ public class MapUtils {
         map.put("msg",content);
         map.put("qq",phone);
         map.put("photos",photos);
+        return map;
+    }
+
+    /**
+     * @param tel 手机号
+     * @param pl    模板
+     * @param sign  签名
+     * @return
+     */
+    public static Map<String,String> getSendSMSMap(String tel,String pl,String sign){
+
+        Map<String,String> map = new HashMap<>();
+        map.putAll(getCurrencyMap());
+        map.put("smstel",tel);
+        map.put("smstpl",pl);
+        map.put("smssign",sign);
+        return map;
+    }
+
+    /**
+     * @param tel   手机号
+     * @param code  验证码
+     * @param key   短信验证key
+     * @return
+     */
+    public static Map<String,String> getSmsLoginMap(String tel,String code,String key){
+        Map<String,String> map = new HashMap<>();
+        map.putAll(getCurrencyMap());
+        map.put("smstel",tel);
+        map.put("smscode",code);
+        map.put("smskey",key);
         return map;
     }
 
