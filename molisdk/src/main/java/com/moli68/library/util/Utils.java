@@ -13,8 +13,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.moli68.library.BuildConfig;
 
@@ -30,6 +32,7 @@ import java.util.UUID;
 
 public class Utils {
         private static MessageDigest digest;
+        public static String device;
 
 //    public static Map<String,String> stringMap = new HashMap<>();
 
@@ -40,7 +43,7 @@ public class Utils {
      */
     @SuppressLint("MissingPermission")
     public static String getDevice(Context context){
-        String device = "";
+         device = "";
         Boolean getdevice = SpUtils.getInstance().getBoolean("getdevice", true);
 
         try {

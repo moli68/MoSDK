@@ -2,6 +2,7 @@ package com.moli68.library.initialization;
 
 import android.content.Context;
 
+import com.bun.miitmdid.core.JLibrary;
 import com.moli68.library.contants.API;
 import com.moli68.library.contants.Contants;
 import com.moli68.library.util.CPResourceUtils;
@@ -21,6 +22,7 @@ public class MoliSDK {
             if (mContext == null){
                 mContext = context;
             }
+            JLibrary.InitEntry(mContext);
             SpUtils.getInstance().init(mContext);
             CPResourceUtils.init(mContext);
             ToastUtils.init(mContext);

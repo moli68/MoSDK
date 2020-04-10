@@ -1,4 +1,4 @@
-package com.mdid.msa;
+package com.moli68.library.util;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
