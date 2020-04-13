@@ -131,6 +131,7 @@ public class Utils {
             } else {
                 serial = Build.SERIAL;
             }
+            Log.d("MoliSDK:"+m_szDevIDShort+":serial",serial);
             //API>=9 使用serial号
             //return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
             return MD5(m_szDevIDShort+serial);
