@@ -19,6 +19,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.moli68.library.BuildConfig;
+import com.moli68.library.oaid_tool.DevicesIDsHelper;
 
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
@@ -31,19 +32,20 @@ import java.util.UUID;
 
 
 public class Utils {
-        private static MessageDigest digest;
-        public static String device;
+    private static MessageDigest digest;
+    public static String device;
 
 //    public static Map<String,String> stringMap = new HashMap<>();
 
     /**
-     *        得到手机设备标识码
+     * 得到手机设备标识码
+     *
      * @param context
      * @return
      */
     @SuppressLint("MissingPermission")
-    public static String getDevice(Context context){
-         device = "";
+    public static String getDevice(Context context) {
+        device = "";
         Boolean getdevice = SpUtils.getInstance().getBoolean("getdevice", true);
 
         try {
@@ -55,14 +57,13 @@ public class Utils {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
 
-
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
 
 
             if (getdevice) {
-                if (Build.VERSION.SDK_INT>=29){
-                    device =  getUUID();
-                }else {
+                if (Build.VERSION.SDK_INT >= 29) {
+                    device = getOaid(context);//getUUID();
+                } else {
                     device = tm.getDeviceId();
                     try {
                         // 适配双卡情况
@@ -73,8 +74,8 @@ public class Utils {
                         e.printStackTrace();
                     }
                 }
-            }else {
-                if (!SpUtils.getInstance().getString("getDevicekey").equals("") && SpUtils.getInstance().getString("getDevicekey") != null){
+            } else {
+                if (!SpUtils.getInstance().getString("getDevicekey").equals("") && SpUtils.getInstance().getString("getDevicekey") != null) {
 
                     device = SpUtils.getInstance().getString("getDevicekey");
 
@@ -82,9 +83,9 @@ public class Utils {
             }
 
             SpUtils.getInstance().putString("getDevicekey", device);
-            SpUtils.getInstance().putBoolean("getdevice",false);
+            SpUtils.getInstance().putBoolean("getdevice", false);
 
-        }else {
+        } else {
 
             if (getdevice) {
                 String yyyyMMdd = getDate("yyyyMMdd");
@@ -95,15 +96,43 @@ public class Utils {
                 digest.update(str.getBytes());
                 device = byte2hex(digest.digest());
                 SpUtils.getInstance().putString("getDevicekey", device);
-                SpUtils.getInstance().putBoolean("getdevice",false);
-            }else {
-                if (!SpUtils.getInstance().getString("getDevicekey").equals("") && SpUtils.getInstance().getString("getDevicekey") != null){
+                SpUtils.getInstance().putBoolean("getdevice", false);
+            } else {
+                if (!SpUtils.getInstance().getString("getDevicekey").equals("") && SpUtils.getInstance().getString("getDevicekey") != null) {
                     device = SpUtils.getInstance().getString("getDevicekey");
                 }
             }
 
         }
         return device;
+    }
+
+    /**
+     * 获取oaid  匿名设备id
+     *
+     * @return
+     */
+    private static String getOaid(Context context) {
+        String oaid = SpUtils.getInstance().getString(DevicesIDsHelper.OAID, "unknow");
+        Log.d("MoliSDK:" + ":oaid", oaid);
+        if (isEmpty(oaid) || oaid.equals("unknow")) {
+            return getAndroidID(context);
+        }
+        return oaid;
+    }
+
+    private static String getAndroidID(Context context) {
+        String ANDROID_ID = Settings.System.getString(context.getContentResolver(), Settings.System.ANDROID_ID);
+        if (isEmpty(ANDROID_ID) || "9774d56d682e549c".equals(ANDROID_ID)) {
+            Log.d("MoliSDK:" + "Android id获取失败：", ANDROID_ID);
+            Random random = new Random();
+            ANDROID_ID = Integer.toHexString(random.nextInt())
+                    + Integer.toHexString(random.nextInt())
+                    + Integer.toHexString(random.nextInt());
+        }
+        Log.d("MoliSDK:" + ":android_id", ANDROID_ID);
+        return ANDROID_ID;
+
     }
 
     @SuppressLint("MissingPermission")
@@ -131,23 +160,24 @@ public class Utils {
             } else {
                 serial = Build.SERIAL;
             }
-            Log.d("MoliSDK:"+m_szDevIDShort+":serial",serial);
+            Log.d("MoliSDK:" + m_szDevIDShort + ":serial", serial);
             //API>=9 使用serial号
             //return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
-            return MD5(m_szDevIDShort+serial);
+            return MD5(m_szDevIDShort + serial);
         } catch (Exception exception) {
             //serial需要一个初始化
             serial = "molisdk"; // 随便一个初始化
         }
         //使用硬件信息拼凑出来的15位号码
         //return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
-        return MD5(m_szDevIDShort+serial);
+        return MD5(m_szDevIDShort + serial);
     }
 
 
     /**
-     *       生成随机数字和字母
-     * @param length        长度
+     * 生成随机数字和字母
+     *
+     * @param length 长度
      * @return
      */
     public static String getStringRandom(int length) {
@@ -156,15 +186,15 @@ public class Utils {
         Random random = new Random();
 
         //参数length，表示生成几位随机数
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
 
             String charOrNum = random.nextInt(2) % 2 == 0 ? "char" : "num";
             //输出字母还是数字
-            if( "char".equalsIgnoreCase(charOrNum) ) {
+            if ("char".equalsIgnoreCase(charOrNum)) {
                 //输出是大写字母还是小写字母
                 int temp = random.nextInt(2) % 2 == 0 ? 65 : 97;
-                val += (char)(random.nextInt(26) + temp);
-            } else if( "num".equalsIgnoreCase(charOrNum) ) {
+                val += (char) (random.nextInt(26) + temp);
+            } else if ("num".equalsIgnoreCase(charOrNum)) {
                 val += String.valueOf(random.nextInt(10));
             }
         }
@@ -172,39 +202,43 @@ public class Utils {
     }
 
     /**
-     *      得到年月日
-     * @param type      格式
+     * 得到年月日
+     *
+     * @param type 格式
      * @return
      */
-    public static String getDate(String type){
+    public static String getDate(String type) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(type);
         Date date = new Date();
         return simpleDateFormat.format(date);
     }
 
     /**
-     *          判断字符串是否为空
+     * 判断字符串是否为空
+     *
      * @param str
      * @return
      */
-    public static boolean isEmpty(String str){
-        if (str  == null || str.equals("") || str.equals("null")){
+    public static boolean isEmpty(String str) {
+        if (str == null || str.equals("") || str.equals("null")) {
             return true;
         }
         return false;
     }
 
     /**
-     *          判断字符串不为空
+     * 判断字符串不为空
+     *
      * @param str
      * @return
      */
-    public static boolean isNotEmpty(String str){
+    public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
     }
 
     /**
-     *          数组转字符串
+     * 数组转字符串
+     *
      * @param b
      * @return
      */
@@ -223,19 +257,20 @@ public class Utils {
     }
 
     /**
-     *          判断当前网络是否可用
+     * 判断当前网络是否可用
+     *
      * @param context
      * @return
      */
-    public static boolean isNetworkAvailable(Context context){
+    public static boolean isNetworkAvailable(Context context) {
         boolean result = false;
         try {
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            if (connectivityManager != null){
+            if (connectivityManager != null) {
                 NetworkInfo[] infos = connectivityManager.getAllNetworkInfo();
-                if (infos != null){
+                if (infos != null) {
                     for (int i = 0; i < infos.length; i++) {
-                        if (infos[i].getState() == NetworkInfo.State.CONNECTED){
+                        if (infos[i].getState() == NetworkInfo.State.CONNECTED) {
                             result = true;
                             break;
                         }
@@ -249,19 +284,20 @@ public class Utils {
     }
 
     /**
-     *      判断当前网络状态是否是wifi
+     * 判断当前网络状态是否是wifi
+     *
      * @param context
      * @return
      */
-    public static boolean isWifi(Context context){
+    public static boolean isWifi(Context context) {
         boolean result = false;
         try {
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            if (connectivityManager != null){
+            if (connectivityManager != null) {
                 NetworkInfo[] infos = connectivityManager.getAllNetworkInfo();
-                if (infos != null){
+                if (infos != null) {
                     for (int i = 0; i < infos.length; i++) {
-                        if (infos[i].getType() == ConnectivityManager.TYPE_WIFI){
+                        if (infos[i].getType() == ConnectivityManager.TYPE_WIFI) {
                             result = true;
                             break;
                         }
@@ -275,12 +311,13 @@ public class Utils {
     }
 
     /**
-     *      判断是否是中国电信,联通,移动的正确电话号码
+     * 判断是否是中国电信,联通,移动的正确电话号码
+     *
      * @param phone
      * @return
      */
-    public static boolean isPhone(String phone){
-        if (phone == null){
+    public static boolean isPhone(String phone) {
+        if (phone == null) {
             return false;
         }
         	/*
@@ -299,19 +336,19 @@ public class Utils {
      * @param context
      * @return
      */
-    public static boolean isSatAccessPermissionSet(Context context){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+    public static boolean isSatAccessPermissionSet(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             try {
                 PackageManager packageManager = context.getPackageManager();
-                ApplicationInfo info = packageManager.getApplicationInfo(context.getPackageName(),0);
+                ApplicationInfo info = packageManager.getApplicationInfo(context.getPackageName(), 0);
                 AppOpsManager appOpsManager = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
-                appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,info.uid,info.packageName);
-                return appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,info.uid,info.packageName) == AppOpsManager.MODE_ALLOWED;
+                appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, info.uid, info.packageName);
+                return appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, info.uid, info.packageName) == AppOpsManager.MODE_ALLOWED;
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
-        }else {
+        } else {
             return true;
         }
     }
@@ -332,13 +369,14 @@ public class Utils {
     }
 
     /**
-     *  得到手机当前版本号
+     * 得到手机当前版本号
+     *
      * @return
      */
-    public static String getVersion(Context context){
+    public static String getVersion(Context context) {
         String localVersion = "";
         try {
-            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(),0);
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             localVersion = String.valueOf(packageInfo.versionCode);
         } catch (Exception e) {
             e.printStackTrace();
@@ -347,24 +385,25 @@ public class Utils {
     }
 
     /**
-     *   比较本地版本和服务器版本大小
-     * @param serverVersion     服务器版本号
-     * @param localVersion      本地版本号
+     * 比较本地版本和服务器版本大小
+     *
+     * @param serverVersion 服务器版本号
+     * @param localVersion  本地版本号
      * @return
      */
-    public static boolean VersionCompare(String serverVersion, String localVersion){
+    public static boolean VersionCompare(String serverVersion, String localVersion) {
         String[] server = serverVersion.split("[.]");
         String[] local = localVersion.split("[.]");
 
         for (int i = 0; i < server.length; i++) {
-            if (i < local.length){
+            if (i < local.length) {
                 int a = Integer.parseInt(server[i]);
                 int b = Integer.parseInt(local[i]);
-                if (a > b){
+                if (a > b) {
                     return true;
-                }else if (a == b){
+                } else if (a == b) {
                     continue;
-                }else {
+                } else {
                     return false;
                 }
             }
@@ -374,13 +413,14 @@ public class Utils {
 
     /**
      * 获取字符的MD5码
+     *
      * @param pwd
      * @return
      */
-    public  static String MD5(String pwd) {
+    public static String MD5(String pwd) {
         //用于加密的字符
-        char md5String[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                'a', 'b', 'c', 'd', 'e', 'f' };
+        char md5String[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'a', 'b', 'c', 'd', 'e', 'f'};
         try {
             //使用平台的默认字符集将此 String 编码为 byte序列，并将结果存储到一个新的 byte数组中
             byte[] btInput = pwd.getBytes();
