@@ -63,6 +63,9 @@ public class Utils {
             if (getdevice) {
                 if (Build.VERSION.SDK_INT >= 29) {
                     device = getOaid(context);//getUUID();
+                    if (device.length()>32){
+                        device = MD5(device);
+                    }
                 } else {
                     device = tm.getDeviceId();
                     try {

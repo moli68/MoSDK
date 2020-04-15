@@ -14,7 +14,7 @@ public interface OppoIDInterface extends IInterface {
 
   public static abstract class up extends Binder implements OnePlusIDInterface {
 
-    public static class down implements OnePlusIDInterface {
+    public static class down implements OppoIDInterface {
       public IBinder iBinder;
 
       public down(IBinder ib) {
@@ -56,7 +56,7 @@ public interface OppoIDInterface extends IInterface {
       }
       IInterface iInterface = iBinder.queryLocalInterface("com.heytap.openid.IOpenID");
       if (iInterface == null || !(iInterface instanceof OppoIDInterface)) {
-        return (OppoIDInterface) new down(iBinder);
+        return  new down(iBinder);
       }
       else {
         return (OppoIDInterface) iInterface;

@@ -46,6 +46,7 @@ public class MoliSDK {
         DevicesIDsHelper.AppIdsUpdater updater = new DevicesIDsHelper.AppIdsUpdater() {
             @Override
             public void OnIdsAvalid(@NonNull String ids) {
+                String temp = ids;
                SpUtils.getInstance().putString(DevicesIDsHelper.OAID,ids);
             }
         };
