@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MoliSDK.iml" filepath="$PROJECT_DIR$/MoliSDK.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/molisdk/molisdk.iml" filepath="$PROJECT_DIR$/molisdk/molisdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MoliSDK.iml" filepath="$PROJECT_DIR$/MoliSDK.iml" group="MoliSDK" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="MoliSDK/app" />
+      <module fileurl="file://$PROJECT_DIR$/molisdk/molisdk.iml" filepath="$PROJECT_DIR$/molisdk/molisdk.iml" group="MoliSDK/molisdk" />
     </modules>
   </component>
 </project>

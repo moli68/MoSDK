@@ -64,6 +64,11 @@
         android:text="登录"
         android:onClick="login"
         android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="match_parent"
+        android:text="微信登录"
+        android:onClick="wc_login"
+        android:layout_height="wrap_content" />
     <com.moli68.library.custom.PressedTextView
         android:layout_width="match_parent"
         android:text="参数"

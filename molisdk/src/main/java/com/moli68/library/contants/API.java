@@ -55,6 +55,12 @@ public interface API {
      */
     public static String SMS_LOGIN = "smslogin";
 
+    /**
+    * 微信登录
+    */
+    public static String WC_LOGIN = "wechat.login";
+
+
 
 
 

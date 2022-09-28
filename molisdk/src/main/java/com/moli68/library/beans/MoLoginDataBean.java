@@ -9,10 +9,26 @@ import java.io.Serializable;
 public class MoLoginDataBean implements Serializable {
 
     private long id;
+    /**
+     * key
+     */
     private String uk;
+    /**
+     * 头像
+     */
     private String img;
+    /**
+     * 昵称
+     */
     private String na;
+    /**
+     * 电话
+     */
     private String tl;
+    /**
+     * 登录类型 1：微信登录
+     */
+    private int wc;
     public void setId(long id) {
         this.id = id;
     }
@@ -56,6 +72,15 @@ public class MoLoginDataBean implements Serializable {
                 ", img='" + img + '\'' +
                 ", na='" + na + '\'' +
                 ", tl='" + tl + '\'' +
+                ", wc='" + wc + '\'' +
                 '}';
+    }
+
+    public int getWc() {
+        return wc;
+    }
+
+    public void setWc(int wc) {
+        this.wc = wc;
     }
 }

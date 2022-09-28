@@ -37,7 +37,9 @@ public class DataModel {
     private boolean hasReg,hasUpdata,hasGetDoc,hasLogin;
 
 
-
+    /**
+     *
+     */
     private DataModel() {
         gson = new Gson();
         data = gson.fromJson(SpUtils.getInstance().getString(APPDATA), MoUpDataResult.class);

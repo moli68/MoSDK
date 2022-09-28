@@ -118,6 +118,16 @@ public class MapUtils {
         return map;
     }
 
+    public static Map<String,String> getWcLoginMap(String open_id,String nick_name,String headurl){
+        Map<String,String> map = new HashMap<>();
+        map.putAll(getCurrencyMap());
+        map.put("open_id",open_id);
+        map.put("nickname",nick_name);
+        map.put("headurl",headurl);
+        return map;
+    }
+
+
     /**
      *      订单详情
      * @param type          订单类型    1:支付    2:打赏

@@ -418,4 +418,26 @@ public class MainActivity extends AppCompatActivity {
             ToastUtils.showShortToast("网络连接失败，请先开启网络");
         }
     }
+
+    public void wc_login(View view) {
+
+        String temp = etInput.getText().toString();
+        if (Utils.isEmpty(temp)){
+            ToastUtils.showShortToast("请输入微信open_id");
+            return;
+        }
+        HttpUtils.getInstance().postWcLogin(tel, "test_name", "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201805%2F03%2F20180503221445_BTUzC.thumb.700_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666855056&t=da9a2205c481da84b6b25f9098ee6f00", new SimpleCallback<MoLoginResultBean>() {
+
+            @Override
+            public void onSucceed(MoLoginResultBean result) {
+                ToastUtils.showShortToast("登录成功");
+            }
+
+            @Override
+            public void onFailed(Exception e, String msg) {
+
+            }
+        });
+
+    }
 }

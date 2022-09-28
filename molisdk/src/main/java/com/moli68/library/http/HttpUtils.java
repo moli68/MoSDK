@@ -335,7 +335,8 @@ public class HttpUtils {
             String key = entry.getKey();
             String value = entry.getValue();
             if (value == null) {
-                value = null;
+                //value报空
+                value = "";
             }
             if (key.equals("app_sign")) {
                 value = Utils.byte2hex(alga.digest());
@@ -426,6 +427,16 @@ public class HttpUtils {
     }
 
     /**
+     * @param open_id 微信id
+     * @param nick_name  昵称
+     * @param headurl   头像url
+     * @param callback  回调
+     */
+    public void postWcLogin(String open_id,String nick_name,String headurl,BaseCallback callback){
+        post(commonUrl+API.WC_LOGIN,MapUtils.getWcLoginMap(open_id,nick_name,headurl),callback,API.WC_LOGIN);
+    }
+
+    /**
      * @param order_type   订单类型
      * @param order_serivce_id 商品ID
      * @param money         支付金额
@@ -482,7 +493,7 @@ public class HttpUtils {
                     if (API.GET_DOC.equals(requestType)){
                        DataModel.getDefault().saveDocsGsonString(result);
                     }
-                    if (API.SMS_LOGIN.equals(requestType)){
+                    if (API.SMS_LOGIN.equals(requestType)||API.WC_LOGIN.equals(requestType)){
                         DataModel.getDefault().savaLoginDataString(result);
                     }
 
@@ -494,7 +505,7 @@ public class HttpUtils {
                         //如果返回是其他类型,则用Gson去解析
                         try {
                             Object o = gson.fromJson(result, callback.mType);
-                            if (!API.SMS_LOGIN.equals(requestType)){
+                            if (!API.SMS_LOGIN.equals(requestType)&&!API.WC_LOGIN.equals(requestType)){
                                 callbackSuccess(response,o,callback);
                             }else {
                                 postUpdate(new SimpleCallback() {
@@ -505,7 +516,7 @@ public class HttpUtils {
                                     @Override
                                     public void onFailed(Exception e, String msg) {
                                         callbackSuccess(response,o,callback);
-                                        ToastUtils.showShortToast("绑定手机成功，数据更新失败，请重新打开软件");
+                                        ToastUtils.showShortToast("登录成功，数据更新失败，请重新打开软件");
                                     }
                                 });
                             }
