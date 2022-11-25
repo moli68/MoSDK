@@ -1,5 +1,7 @@
 package com.moli68.library;
 
+import android.widget.ImageView;
+
 import com.moli68.library.beans.MoAdsBean;
 import com.moli68.library.beans.MoControlBean;
 import com.moli68.library.beans.MoDocBean;
@@ -107,6 +109,7 @@ public class DataModel {
         if (loginResultBean!=null&&loginResultBean.isIssucc()){
             savaLoginData(loginResultBean.getData());
             DataModel.getDefault().setHasLogin(true);
+
         }
     }
 
